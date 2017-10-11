@@ -1,0 +1,364 @@
+@Article{shannon1949,
+	Author         = "C. E. Shannon",
+	Title          = "Communication in the Presence of Noise",
+	Journal        = "Proc. Institute of Radio Engineers",
+	Volume         = "37",
+	Number         = "1",
+	Pages          = "10--21",
+	localfile      = "file:///d0/bosmanoglu/ownCloud/Papers/Shannon, C.
+	E./communication in the presence of noise.pdf",
+	year           = 1949
+}
+
+@article{nyquist1928certain,
+	title={Certain topics in telegraph transmission theory},
+	author={Nyquist, Harry},
+	journal={Transactions of the American Institute of Electrical Engineers},
+	volume={47},
+	number={2},
+	pages={617--644},
+	year={1928},
+	publisher={IEEE}
+}
+
+
+@article{Candes2007,
+abstract = {We consider the problem of reconstructing a sparse signal {\$}x{\^{}}0\backslashin\backslashR{\^{}}n{\$} from a limited number of linear measurements. Given {\$}m{\$} randomly selected samples of {\$}U x{\^{}}0{\$}, where {\$}U{\$} is an orthonormal matrix, we show that {\$}\backslashell{\_}1{\$} minimization recovers {\$}x{\^{}}0{\$} exactly when the number of measurements exceeds $\backslash$[ m$\backslash$geq $\backslash$mathrm{\{}Const{\}}$\backslash$cdot$\backslash$mu{\^{}}2(U)$\backslash$cdot S$\backslash$cdot$\backslash$log n, $\backslash$] where {\$}S{\$} is the number of nonzero components in {\$}x{\^{}}0{\$}, and {\$}\backslashmu{\$} is the largest entry in {\$}U{\$} properly normalized: {\$}\backslashmu(U) = \backslashsqrt{\{}n{\}} \backslashcdot \backslashmax{\_}{\{}k,j{\}} |U{\_}{\{}k,j{\}}|{\$}. The smaller {\$}\backslashmu{\$}, the fewer samples needed. The result holds for ``most'' sparse signals {\$}x{\^{}}0{\$} supported on a fixed (but arbitrary) set {\$}T{\$}. Given {\$}T{\$}, if the sign of {\$}x{\^{}}0{\$} for each nonzero entry on {\$}T{\$} and the observed values of {\$}Ux{\^{}}0{\$} are drawn at random, the signal is recovered with overwhelming probability. Moreover, there is a sense in which this is nearly optimal since any method succeeding with the same probability would require just about this many samples.},
+archivePrefix = {arXiv},
+arxivId = {math/0611957},
+author = {Cand{\`{e}}s, Emmanuel and Romberg, Justin},
+doi = {10.1088/0266-5611/23/3/008},
+eprint = {0611957},
+file = {:Y$\backslash$:/Literature/Compressive Sensing/Sparsity and Incoherence in Compressive Sampling.pdf:pdf},
+isbn = {0266-5611},
+issn = {0266-5611},
+journal = {Inverse Problems},
+keywords = {1 -minimization,basis pursuit,discrete fourier transform,matrices,restricted orthonormality,singular values of random,sparsity,wavelets},
+number = {3},
+pages = {969--985},
+primaryClass = {math},
+title = {{Sparsity and incoherence in compressive sampling}},
+volume = {23},
+year = {2007}
+}
+
+
+@article{Candes2006,
+	abstract = {This paper considers the model problem of reconstructing an object from incomplete frequency samples. Consider a discrete-time signal f{\&}isin;CN and a randomly chosen set of frequencies {\&}Omega;. Is it possible to reconstruct f from the partial knowledge of its Fourier coefficients on the set {\&}Omega;? A typical result of this paper is as follows. Suppose that f is a superposition of |T| spikes f(t)={\&}sigma;{\&}tau;{\&}isin;Tf({\&}tau;){\&}delta;(t-{\&}tau;) obeying |T|{\&}le;CM{\&}middot;(log N)-1 {\&}middot; |{\&}Omega;| for some constant CM{\textgreater}0. We do not know the locations of the spikes nor their amplitudes. Then with probability at least 1-O(N-M), f can be reconstructed exactly as the solution to the {\&}{\#}8467;1 minimization problem. In short, exact recovery may be obtained by solving a convex optimization problem. We give numerical values for CM which depend on the desired probability of success. Our result may be interpreted as a novel kind of nonlinear sampling theorem. In effect, it says that any signal made out of |T| spikes may be recovered by convex programming from almost every set of frequencies of size O(|T|{\&}middot;logN). Moreover, this is nearly optimal in the sense that any method succeeding with probability 1-O(N-M) would in general require a number of frequency samples at least proportional to |T|{\&}middot;logN. The methodology extends to a variety of other situations and higher dimensions. For example, we show how one can reconstruct a piecewise constant (one- or two-dimensional) object from incomplete frequency samples - provided that the number of jumps (discontinuities) obeys the condition above - by minimizing other convex functionals such as the total variation of f.},
+	archivePrefix = {arXiv},
+	arxivId = {math/0409186},
+	author = {Cand{\`{e}}s, Emmanuel J. and Romberg, Justin and Tao, Terence},
+	doi = {10.1109/TIT.2005.862083},
+	eprint = {0409186},
+	file = {:Y$\backslash$:/Literature/Compressive Sensing/Candes, Romberg, Tao - Robust Uncertainty Principles.pdf:pdf},
+	isbn = {0018-9448 VO - 52},
+	issn = {00189448},
+	journal = {IEEE Transactions on Information Theory},
+	keywords = {Convex optimization,Duality in optimization,Free probability,Image reconstruction,Linear programming,Random matrices,Sparsity,Total-variation minimization,Trigonometric expansions,Uncertainty principle},
+	number = {2},
+	pages = {489--509},
+	pmid = {1580791},
+	primaryClass = {math},
+	title = {{Robust uncertainty principles: Exact signal reconstruction from highly incomplete frequency information}},
+	volume = {52},
+	year = {2006}
+}
+
+@article{Candes2006_2,
+	abstract = {Conventional wisdom and common practice in acquisition and reconstruction of images from frequency data follow the basic principle of the Nyquist density sampling theory. This principle states that to reconstruct an image, the number of Fourier samples we need to acquire must match the desired resolution of the image, i.e. the number of pixels in the image. This paper surveys an emerging theory which goes by the name of “compressive sampling” or “compressed sensing,” and which says that this conventional wisdom is inaccurate. Perhaps surprisingly, it is possible to reconstruct images or signals of scientiﬁc interest accurately and sometimes even exactly from a number of samples which is far smaller than the desired resolution of the image/signal, e.g. the number of pixels in the image. It is believed that compressive sampling has far reaching implications. For example, it suggests the possibility of new data acquisition protocols that translate analog information into digital form with fewer sensors than what was considered necessary. This new sampling theory may come to underlie procedures for sampling and compressing data simultaneously. In this short survey, we provide some of the key mathematical insights underlying this new theory, and explain some of the interactions between compressive sampling and other ﬁelds such as statistics, information theory, coding theory, and theoretical computer science.},
+	author = {Cand{\`{e}}s, Emmanuel J.},
+	doi = {10.4171/022-3/69},
+	file = {:Y$\backslash$:/Literature/Compressive Sensing/Candes - Compressive Sampling.pdf:pdf},
+	isbn = {978-3-03719-022-7},
+	issn = {1095-9114},
+	journal = {Proceedings of the International Congress of Mathematicians},
+	keywords = {1 -minimization,compressive sampling,error cor-,linear programming,signal recovery,sparsity,systems of linear equations,underdertermined,uniform uncertainty principle},
+	pages = {1433--1452},
+	pmid = {19923686},
+	title = {{Compressive sampling}},
+	year = {2006}
+}
+
+@article{Candes2008,
+	abstract = {Conventional approaches to sampling signals or images follow Shannon's theorem: the sampling rate must be at least twice the maximum frequency present in the signal (Nyquist rate). In the field of data conversion, standard analog-to-digital converter (ADC) technology implements the usual quantized Shannon representation - the signal is uniformly sampled at or above the Nyquist rate. This article surveys the theory of compressive sampling, also known as compressed sensing or CS, a novel sensing/sampling paradigm that goes against the common wisdom in data acquisition. CS theory asserts that one can recover certain signals and images from far fewer samples or measurements than traditional methods use.},
+	archivePrefix = {arXiv},
+	arxivId = {arXiv:1307.1360v1},
+	author = {Candes, E.J. and Wakin, M.B.},
+	doi = {10.1109/MSP.2007.914731},
+	eprint = {arXiv:1307.1360v1},
+	file = {:Y$\backslash$:/Literature/Compressive Sensing/An Introduction To Compressive Sensing.pdf:pdf},
+	isbn = {1053-5888 VO - 25},
+	issn = {1053-5888},
+	journal = {IEEE Signal Processing Magazine},
+	number = {2},
+	pages = {21--30},
+	pmid = {4472240},
+	title = {{An Introduction To Compressive Sampling}},
+	volume = {25},
+	year = {2008}
+}
+
+@article{Candes2006,
+	abstract = {Suppose we are given a vector f in a class FsubeRopfN , e.g., a class of digital signals or digital images. How many linear measurements do we need to make about f to be able to recover f to within precision epsi in the Euclidean (lscr2) metric? This paper shows that if the objects of interest are sparse in a fixed basis or compressible, then it is possible to reconstruct f to within very high accuracy from a small number of random measurements by solving a simple linear program. More precisely, suppose that the nth largest entry of the vector |f| (or of its coefficients in a fixed basis) obeys |f|(n)lesRmiddotn-1p/, where R{\textgreater}0 and p{\textgreater}0. Suppose that we take measurements yk=langf{\#} ,Xkrang,k=1,...,K, where the Xk are N-dimensional Gaussian vectors with independent standard normal entries. Then for each f obeying the decay estimate above for some 0{\textless}p{\textless}1 and with overwhelming probability, our reconstruction ft, defined as the solution to the constraints yk=langf{\#} ,Xkrang with minimal lscr1 norm, obeys parf-f{\#}parlscr2lesCp middotRmiddot(K/logN)-r, r=1/p-1/2. There is a sense in which this result is optimal; it is generally impossible to obtain a higher accuracy from any set of K measurements whatsoever. The methodology extends to various other random measurement ensembles; for example, we show that similar results hold if one observes a few randomly sampled Fourier coefficients of f. In fact, the results are quite general and require only two hypotheses on the measurement ensemble which are detailed},
+	archivePrefix = {arXiv},
+	arxivId = {math/0410542},
+	author = {Candes, Emmanuel J. and Tao, Terence},
+	doi = {10.1109/TIT.2006.885507},
+	eprint = {0410542},
+	file = {:Y$\backslash$:/Literature/Compressive Sensing/Near-Optimal Signal Recovery From Random Projections - Universal Encoding Strategies.pdf:pdf},
+	isbn = {0018-9448},
+	issn = {00189448},
+	journal = {IEEE Transactions on Information Theory},
+	keywords = {Concentration of measure,Convex optimization,Duality in optimization,Linear programming,Random matrices,Random projections,Signal recovery,Singular values of random matrices,Sparsity,Trigonometric expansions,Uncertainty principle},
+	number = {12},
+	pages = {5406--5425},
+	pmid = {4016283},
+	primaryClass = {math},
+	title = {{Near-optimal signal recovery from random projections: Universal encoding strategies?}},
+	volume = {52},
+	year = {2006}
+}
+
+@article{Donoho2006,
+	abstract = {Suppose x is an unknown vector in R-m (a digital image or signal); we plan to measure n general linear functionals of x and then reconstruct. If x is known to be compressible by transform coding with a known transform, and we reconstruct via the nonlinear procedure defined here, the number of measurements n can be dramatically smaller than the size m. Thus, certain natural classes of images with m pixels need only n = O(m(1/4) log(5/2)(m)) nonadaptive nonpixel samples for faithful recovery, as opposed to the usual m pixel samples. More specifically, suppose x has a sparse representation in some orthonormal basis (e.g., wavelet, Fourier) or tight frame (e.g., curvelet, Gabor)-so the coefficients belong to an l(p), ball for O {\textless} p {\textless}= 1. The N most important coefficients in that expansion allow reconstruction with l(2) error O(N1/2-1/p). It is possible to design n = O (N log (m)) nonadaptive measurements allowing reconstruction with accuracy comparable to that attainable with direct knowledge of the N most important coefficients. Moreover, a good approximation to those N important coefficients is extracted from the n measurements by solving a linear program-Basis Pursuit in signal processing. The nonadaptive measurements have the character of "random" linear combinations of basis/frame elements. Our results use the notions of optimal recovery, of n-widths, and information-based complexity. We estimate the Gel'fand n-widths of l(p) balls in high-dimensional Euclidean space in the case 0 {\textless} p {\textless}= 1, and give a criterion identifying near-optimal subspaces for Gel'fand n-widths. We show that "most" subspaces are near-optimal, and show that convex optimization (Basis Pursuit) is a near-optimal way to extract information derived from these near-optimal subspaces.},
+	archivePrefix = {arXiv},
+	arxivId = {1204.4227v1},
+	author = {Donoho, D L},
+	doi = {Doi 10.1109/Tit.2006.871582},
+	eprint = {1204.4227v1},
+	file = {:Y$\backslash$:/Literature/Compressive Sensing/Donoho - Compressed Sensing.pdf:pdf;:Y$\backslash$:/Literature/Compressive Sensing/Compressive Sensing Applications/CSMRI.pdf:pdf},
+	isbn = {0018-9448},
+	issn = {00189448},
+	journal = {IEEE Transactions on Information Theory},
+	keywords = {adaption,adaptive sampling,almost-spherical sections of banach spaces,approximation,bases,basis pursuit,eigenvalues of random matrices,entropy numbers,gel'fand n-widths,information-based complexity,integrated sensing and processing,linear-operators,minimum l(1)-norm decomposition,noise,optimal recovery,quotient-of-a-subspace theorem,representations,spaces,sparse solution of linear equations},
+	number = {4},
+	pages = {1289--1306},
+	pmid = {1614066},
+	title = {{Compressed sensing}},
+	volume = {52},
+	year = {2006}
+}
+
+@article{Baraniuk2007,
+	abstract = {This lecture note presents a new method to capture and represent compressible signals at a rate significantly below the Nyquist rate. This method, called compressive sensing, employs nonadaptive linear projections that preserve the structure of the signal; the signal is then reconstructed from these projections using an optimization process.},
+	author = {Baraniuk, R.G.},
+	doi = {10.1109/MSP.2007.4286571},
+	file = {:Y$\backslash$:/Literature/Compressive Sensing/Baraniuk - Compressive Sensing.pdf:pdf},
+	isbn = {1053-5888 VO - 24},
+	issn = {1053-5888},
+	journal = {IEEE Signal Processing Magazine},
+	number = {July},
+	pages = {118--121},
+	pmid = {19158952},
+	title = {{Compressive Sensing [Lecture Notes]}},
+	volume = {24},
+	year = {2007}
+}
+
+@article{Lustig2008,
+	abstract = {The reconstruction of signals and images from significantly fewer measurements can be realized under the compressed sensing (CS) paradigm. Compressed sensing can be done through magnetic resonance imaging (MRI) and has been studied just recently. The study reviewed the requirements for successful CS, described their natural fit to MRI, and then give examples of four interesting applications of CS in MRI. The investigation of CS-MRI showed such challenges as optimizing sampling trajectories, developing improved sparse transforms that are incoherent to the sampling operator, studying reconstruction quality in terms of clinical significance, and improving the speed of reconstruction algorithms.},
+	archivePrefix = {arXiv},
+	arxivId = {1204.4227v1},
+	author = {Lustig, Michael and Donoho, David L. and Santos, Juan M. and Pauly, John M.},
+	doi = {10.1109/MSP.2007.914728},
+	eprint = {1204.4227v1},
+	file = {:Y$\backslash$:/Literature/Compressive Sensing/Compressive Sensing Applications/CSMRI.pdf:pdf},
+	isbn = {0018-9448},
+	issn = {10535888},
+	journal = {IEEE Signal Processing Magazine},
+	number = {2},
+	pages = {72--82},
+	pmid = {1614066},
+	title = {{Compressed sensing MRI: A look at how CS can improve on current imaging techniques}},
+	volume = {25},
+	year = {2008}
+}
+
+@article{duarte2008single,
+	title={Single-pixel imaging via compressive sampling},
+	author={Duarte, Marco F and Davenport, Mark A and Takbar, Dharmpal and Laska, Jason N and Sun, Ting and Kelly, Kevin F and Baraniuk, Richard G},
+	journal={IEEE signal processing magazine},
+	volume={25},
+	number={2},
+	pages={83--91},
+	year={2008},
+	publisher={IEEE}
+}
+
+@article{Tropp2010,
+	abstract = {Wideband analog signals push contemporary analog-to-digital conversion systems to their performance limits. In many applications, however, sampling at the Nyquist rate is inefficient because the signals of interest contain only a small number of significant frequencies relative to the bandlimit, although the locations of the frequencies may not be known a priori. For this type of sparse signal, other sampling strategies are possible. This paper describes a new type of data acquisition system, called a random demodulator, that is constructed from robust, readily available components. Let K denote the total number of frequencies in the signal, and let W denote its bandlimit in Hz. Simulations suggest that the random demodulator requires just O(K log(W/K)) samples per second to stably reconstruct the signal. This sampling rate is exponentially lower than the Nyquist rate of W Hz. In contrast with Nyquist sampling, one must use nonlinear methods, such as convex programming, to recover the signal from the samples taken by the random demodulator. This paper provides a detailed theoretical analysis of the system's performance that supports the empirical observations.},
+	archivePrefix = {arXiv},
+	arxivId = {0902.0026},
+	author = {Tropp, Joel A. and Laska, Jason N. and Duarte, Marco F. and Romberg, Justin K. and Baraniuk, Richard G.},
+	doi = {10.1109/TIT.2009.2034811},
+	eprint = {0902.0026},
+	file = {:Y$\backslash$:/Literature/Compressive Sensing/0902.0026.pdf:pdf},
+	isbn = {0018-9448},
+	issn = {00189448},
+	journal = {IEEE Transactions on Information Theory},
+	keywords = {Analog-to-digital conversion,Compressive sampling,Sampling theory,Signal recovery,Sparse approximation},
+	number = {1},
+	pages = {520--544},
+	pmid = {5361485},
+	title = {{Beyond Nyquist: Efficient sampling of sparse bandlimited signals}},
+	volume = {56},
+	year = {2010}
+}
+
+@article{Duarte2011,
+	abstract = {Compressed sensing (CS) is an emerging field that has attracted considerable research interest over the past few years. Previous review articles in CS limit their scope to standard discrete-to-discrete measurement architectures using matrices of randomized nature and signal models based on standard sparsity. In recent years, CS has worked its way into several new application areas. This, in turn, necessitates a fresh look on many of the basics of CS. The random matrix measurement operator must be replaced by more structured sensing architectures that correspond to the characteristics of feasible acquisition hardware. The standard sparsity prior has to be extended to include a much richer class of signals and to encode broader data models, including continuous-time signals. In our overview, the theme is exploiting signal and measurement structure in compressive sensing. The prime focus is bridging theory and practice; that is, to pinpoint the potential of structured CS strategies to emerge from the math to the hardware. Our summary highlights new directions as well as relations to more traditional CS, with the hope of serving both as a review to practitioners wanting to join this emerging field, and as a reference for researchers that attempts to put some of the existing ideas in perspective of practical applications.},
+	archivePrefix = {arXiv},
+	arxivId = {1106.6224},
+	author = {Duarte, Marco F. and Eldar, Yonina C},
+	doi = {10.1109/TSP.2011.2161982},
+	eprint = {1106.6224},
+	file = {:Y$\backslash$:/Literature/Compressive Sensing/Structured Compressed Sensing - From Theory To Applications.pdf:pdf},
+	month = {jun},
+	number = {170},
+	pages = {4053--4085},
+	title = {{Structured Compressed Sensing: From Theory to Applications}},
+	volume = {59},
+	year = {2011}
+}
+
+@book{Rish2015,
+	author = {Rish, Irina and Grabarnik, Genady},
+	file = {:Y$\backslash$:/Literature/Compressive Sensing/Sparse Modeling{\_} Theory, Algorithms, and Applications [Rish {\&} Grabarnk 2014-12-05].pdf:pdf},
+	isbn = {9781439828700},
+	title = {{Sparse Modeling: Theory, Algorithms, and Applications}},
+	year = {2015}
+}
+
+
+@Misc{romberg,
+	author = {Justin Romberg},
+	title = {Tsinghua {C}ourse on {S}parse {A}pproximation - Lecture notes},
+	year = {2013},
+	url = {http://jrom.ece.gatech.edu/tsinghua-oct13/},
+	note = {{A}ccessed on 11.10.2017.}
+}
+
+@article{Candes2005,
+	annote = {NULL},
+	author = {Candes, Emmanuel and Tao, Terence},
+	file = {:Y$\backslash$:/Literature/Compressive Sensing/Candes, Tao - Decoding by Linear Programming.pdf:pdf},
+	journal = {IEEE Trans. Inf. Theory},
+	number = {12},
+	pages = {4203--4215},
+	title = {{Decoding by Linear Programming}},
+	volume = {51},
+	year = {2005}
+}
+
+@book{Mallat2004,
+	abstract = {This study reviewed the trabeculectomies (TEs) carried out in University Malaya Medical Center between 1994 to 1998. One hundred and nine of 132 eyes operated were in the primary glaucoma group of which 63 (47.7{\%}) were of the open angle type and 46 (34.8{\%}) were of the angle closure type. Twenty-three eyes belong to the secondary glaucoma group. Sixty-five eyes had plain or non-augmented trabeculectomy (TE) while 20 were augmented with mitomycin C (MMC) and 11 with 5 flourouracil (5FU). In 31 eyes the plain TEs were combined with extracapsular cataract extraction (ECCE) and 4 with phacoemusification. One case had combined ECCE and augmented trabeculectomy with mitomycin-C. The patients were followed up at 1 month, 6 months, 1 year and 2 years. Ninety-four of 132 (71.2{\%}) eyes had successful surgery with intraocular pressure (IOP) of less than 21 mmHg (tonometric success) at the end of 2 years. Four of these patients needed topical medication for the IOP control. More failures were seen in patients with cystic blebs than those with diffuse blebs. Complications include hypotony, shallow anterior chamber, cataracts and hyphaema. The majority of cases (53{\%}) had no complications.},
+	author = {Mallat, Stephane},
+	booktitle = {Elsevier},
+	doi = {10.1016/B978-012466606-1/50004-0},
+	file = {:Y$\backslash$:/Literature/Compressive Sensing/Mallat3.pdf:pdf},
+	isbn = {9780123743701},
+	issn = {0300-5283},
+	keywords = {Signal processing -- Mathematics,Wavelets (Mathematics)},
+	number = {3},
+	pages = {378--83},
+	pmid = {15727384},
+	title = {{A Wavelet Tour of Signal Processing The Sparse Way}},
+	volume = {59},
+	year = {2004}
+}
+
+@article{kruskal1977three,
+	title={Three-way arrays: rank and uniqueness of trilinear decompositions, with application to arithmetic complexity and statistics},
+	author={Kruskal, Joseph B},
+	journal={Linear algebra and its applications},
+	volume={18},
+	number={2},
+	pages={95--138},
+	year={1977},
+	publisher={Elsevier}
+}
+
+@article{donoho2003optimally,
+	title={Optimally sparse representation in general (nonorthogonal) dictionaries via l1 minimization},
+	author={Donoho, David L and Elad, Michael},
+	journal={Proceedings of the National Academy of Sciences},
+	volume={100},
+	number={5},
+	pages={2197--2202},
+	year={2003},
+	publisher={National Acad Sciences}
+}
+
+@article{Elad2010,
+	abstract = {This textbook introduces sparse and redundant representations with a focus on applications in signal and image processing. The theoretical and numerical foundations are tackled before the applications are discussed. Mathematical modeling for signal sources is discussed along with how to use the proper model for tasks such as denoising, restoration, separation, interpolation and extrapolation, compression, sampling, analysis and synthesis, detection, recognition, and more. The presentation is elegant and engaging. Sparse and Redundant Representations is intended for graduate students in applied mathematics and electrical engineering, as well as applied mathematicians, engineers, and researchers who are active in the fields of signal and image processing.},
+	archivePrefix = {arXiv},
+	arxivId = {g},
+	author = {Elad, Michael},
+	doi = {10.1007/978-1-4419-7011-4},
+	eprint = {g},
+	isbn = {9781441970107},
+	issn = {144197010X},
+	journal = {Sparse and Redundant Representations: From Theory to Applications in Signal and Image Processing},
+	pages = {1--376},
+	pmid = {16351060},
+	title = {{Sparse and redundant representations: From theory to applications in signal and image processing}},
+	year = {2010}
+}
+
+@article{Pereira2014,
+	abstract = {Compressive Sensing (CS) allows for reconstructing sparse signals within a low acceptable error using less measurements than stipulated by the Nyquist criterion. This CS paradigm rests on the assumption that there is a basis in which the signal is sparse, and one employs random measurements by means of projections on a sensing matrix reconstructing the signal from these measurements through l1-norm minimization on the sparsity basis. In this work, we propose a method to design sensing matrices with minimum coherence to a given sparsifying orthogonal basis. We provide a mathematical proof of the optimality in terms of coherence minimization for the proposed sensing matrices. This result is extended for biorthogonal bases in order to provide sensing matrices with low coherence, that have advantages when compared to Noiselets in a CS paradigm. Experimental results in an image compression setup show that the proposed sensing matrices provide superior rate-distortion results than Noiselets. These results indicate that the proposed sensing matrices tend to outperform Noiselets when sensing natural images. {\textcopyright} 2014 Elsevier Inc.},
+	author = {Pereira, Marcio P. and Lovisolo, Lisandro and {Da Silva}, Eduardo A B and {De Campos}, Marcello L R},
+	doi = {10.1016/j.dsp.2014.01.006},
+	file = {:Y$\backslash$:/Literature/Compressive Sensing/Measurement Matrix Construction/On the design of maximally incoherent sensing matrices for compressed sensing using orthogonal bases and its extension for biorthogonal bases case.pdf:pdf},
+	isbn = {1051-2004},
+	issn = {10512004},
+	journal = {Digital Signal Processing: A Review Journal},
+	keywords = {Biorthogonal bases,Compressive sensing,Orthogonal bases,Signal compression,Signal sampling},
+	number = {1},
+	pages = {12--22},
+	publisher = {Elsevier Inc.},
+	title = {{On the design of maximally incoherent sensing matrices for compressed sensing using orthogonal bases and its extension for biorthogonal bases case}},
+	volume = {27},
+	year = {2014}
+}
+
+@article{Moreira2014,
+	author = {Moreira, Joel},
+	file = {:Y$\backslash$:/Literature/Compressive Sensing/RIP-matrix.pdf:pdf},
+	pages = {1--4},
+	title = {{What is... a rip matrix?}},
+	year = {2014}
+}
+
+@article{Romberg2013,
+	author = {Romberg, Justin},
+	title = {{Mathematics of Compressive Sensing : Random matrices are restricted isometries}},
+	year = {2013}
+	note = {ENS Winter School}
+}
+
+@article{CANDES2008589,
+	title = "The restricted isometry property and its implications for compressed sensing",
+	journal = "Comptes Rendus Mathematique",
+	volume = "346",
+	number = "9",
+	pages = "589 - 592",
+	year = "2008",
+	issn = "1631-073X",
+	doi = "https://doi.org/10.1016/j.crma.2008.03.014",
+	author = "Emmanuel J. Candès",
+	abstract = "Abstract It is now well-known that one can reconstruct sparse or compressible signals accurately from a very limited number of measurements, possibly contaminated with noise. This technique known as “compressed sensing” or “compressive sampling” relies on properties of the sensing matrix such as the restricted isometry property. In this Note, we establish new results about the accuracy of the reconstruction from undersampled measurements which improve on earlier estimates, and have the advantage of being more elegant. To cite this article: E.J. Candès, C. R. Acad. Sci. Paris, Ser. I 346 (2008).Résumé Il est maintenant bien connu que l'on peut reconstruire des signaux compressibles de manière précise à partir d'un nombre étonnamment petit de mesures, peut-être même bruitées. Cette technique appelée le “compressed sensing” ou “compressive sampling” utilise des propriétés de la matrice d'échantillonage comme la propriété d'isométrie restreinte. Dans cette Note, nous présentons de nouveaux résultats sur la reconstruction de signaux à partir de données incomplètes qui améliorent des travaux précedents et qui, en outre, ont l'avantage d'être plus élégants. Pour citer cet article : E.J. Candès, C. R. Acad. Sci. Paris, Ser. I 346 (2008)."
+}
+
+@article{Blanchard2011,
+	author = {Jeffrey D. Blanchard and Coralia Cartis and Jared Tanner},
+	title = {Compressed Sensing: How Sharp Is the Restricted Isometry Property?},
+	journal = {SIAM Review},
+	volume = {53},
+	number = {1},
+	pages = {105-125},
+	year = {2011},
+	doi = {10.1137/090748160},
+}
+
+
