@@ -430,7 +430,7 @@
 % As a general rule, do not put math, special symbols or citations
 % in the abstract or keywords.
 \begin{abstract}
-Sparse modeling and compressive sensing are novel methods for signal representation and acquisition. Sparse signal representations are manifestation of the parsimony principle also known as the Occam's razor which states that the simplest and most concise explanation of a natural phenomenon is in most cases the best one possible. Sparse structure appears to be an inherent property of many natural signals. Compressive sensing represents a signal acquisition technique that exploits underlying sparse signal structure and enables accurate signal recovery from an incomplete set of measurements. In this overview, we will cover theory of basis representation, sparse signal decomposition and sparse recovery problem formulations and bridge it with different practical applications of compressive sensing framework. 
+Sparse modeling and compressive sensing are novel methods for signal representation and acquisition. Sparse signal representations are manifestation of the parsimony principle also known as the Occam's razor which states that the simplest and most concise explanation of a natural phenomenon is in most cases the best one possible. Sparse structure appears to be an inherent property of many natural signals. Compressive sensing represents a signal acquisition technique that exploits underlying sparse signal structure and enables accurate signal recovery from an incomplete set of measurements. In this overview, we will cover theory of basis representation, sparse signal decomposition and sparse recovery problem formulations and bridge it with different practical applications of compressive sensing framework. We will present the most recent advances in the compressive sensing theory and the state-of-the-art applications.
 
 \end{abstract}
 
@@ -588,7 +588,7 @@ Within the family of $\Vert \boldsymbol{x}\Vert_q^q$ functions, only those with 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Compressive Sensing}
-Compressive sensing offers a framework for simultaneous sensing and compression of finite-dimensional vectors, that relies on dimensionality reduction. In compressive sensing, the signal is not measured via standard point samples but rather through the projection by a measurement matrix $\boldsymbol{\Phi}$:
+Compressive sensing (CS) offers a framework for simultaneous sensing and compression of finite-dimensional vectors, that relies on dimensionality reduction. In compressive sensing, the signal is not measured via standard point samples but rather through the projection by a measurement matrix $\boldsymbol{\Phi}$:
 %
 \begin{equation}
 	\boldsymbol{y}=\boldsymbol{\Phi} \boldsymbol{x}=\boldsymbol{\Phi} \boldsymbol{\Psi} \boldsymbol{s}=\boldsymbol{A} \boldsymbol{s}
@@ -596,11 +596,15 @@ Compressive sensing offers a framework for simultaneous sensing and compression 
 %
 where $\boldsymbol{\Phi}$ is an $N\times M$ measurement matrix and $\boldsymbol{y}\in\mathbf{R}^M$ is a set of $M$ measurements or samples where $M$ can be much smaller than the original dimensionality of the signal, hence the name compressive sensing. We introduce $\boldsymbol{A}=\boldsymbol{\Phi}\boldsymbol{\Psi}$ and refer to it as the design matrix for compressive sensing. The central problem of compressive sensing is reconstruction of high-dimensional sparse signal representation $\boldsymbol{x}$ from a low-dimensional linear observation $\boldsymbol{y}$, also called the measurement vector. Ideally, the measurement matrix $\boldsymbol{\Phi}$ is designed to reduce the number of measurements $M$ as much as possible while allowing for recovery of a wide class of signals. However, the fact that $M<N$ renders the matrix rank-deficient, meaning that it has a nonempty null-space, which in turn implies that for any particular signal $\boldsymbol{x}_0\in \mathbf{R}$, an infinite number of signals will yield the same measurements $\boldsymbol{y}_0=\boldsymbol{\Phi} \boldsymbol{x}_0 = \boldsymbol{\Phi} \boldsymbol{x}$ for chosen measurement matrix $\boldsymbol{\Phi}$. The motivation behind the design of the matrix $\boldsymbol{\Phi}$ is to allow for distinct signals ($x,\,x'$) within a class of signals of interest to be uniquely identifiable using sparse optimization techniques from their measurements ($y,\,y'$), even though $M\ll N$ \cite{Duarte2011}.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Uniqueness of Compressive Sensing Recovery Problem}
 In this section we will discuss when the solutions of the $l_0$- and $l_1$- norm minimization problems are unique. The main design criteria for matrix $\boldsymbol{A}$ is to enable the unique identification of a signal of interest $\boldsymbol{x}$ from its measurements $\boldsymbol{y}=\boldsymbol{A}\boldsymbol{x}$. Clearly, when we consider the class of $K$-sparse signals $\Sigma_K$, the number of measurements has to be $M>K$ for any matrix design, since the identification problem has $K$ unknowns.
 
 We will now determine properties of $A$ that guarantee that distinct signals $\boldsymbol{x},\,\boldsymbol{x'}\in \Sigma_K, \boldsymbol{x}\neq \boldsymbol{x'}$, lead to different measurement vectors $\boldsymbol{A}\boldsymbol{x}\neq \boldsymbol{A}\boldsymbol{x'}$. In other words, we want each vector $\boldsymbol{y}\in \mathbf{R}^M$ to be matched to at most one vector $\boldsymbol{x}\in \Sigma_K$ such that $\boldsymbol{y}=\boldsymbol{A}\boldsymbol{x}$.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Sensing Matrix Properties}
+\subsubsection{Spark and Krank}
 A key relevant property of the matrix in this context is its spark \cite{donoho2003optimally}. Given an $M\times N$ matrix $\boldsymbol{A}$, its spark $spark(\boldsymbol{A})$, is defined as the minimal number of linearly dependent columns. Spark is closely related to the Kruskal's rank $krank(\boldsymbol{A})$ defined as the maximal number $k$ such that every subset of $k$ columns of the matrix $\boldsymbol{A}$ is linearly independent \cite{kruskal1977three}. We can now write the relation between \textit{spark} and \textit{krank} as:
 %
 \begin{equation} \label{eq:skrank}
@@ -611,6 +615,7 @@ By definition, the vectors in the null-space of the matrix $\boldsymbol{A}\bolds
 
 While \textit{spark} is useful notion for proving the exact recovery of a sparse optimization problem, it is NP-hard to compute since one must verify that all sets of columns of a certain size are linearly independent. Thus, it is preferable to use properties of $\boldsymbol{A}$ which are easily computable to provide recovery guarantees.
 
+\subsubsection{Coherence}
 The coherence $\mu(\boldsymbol{A})$ of a matrix is the largest absolute inner product between any two columns of $\boldsymbol{A}$:
 %
 \begin{equation} \label{eq:coherence}
@@ -625,14 +630,42 @@ For any matrix $\boldsymbol{A}$,
 
 Quite simple way to read the coherence is from the absolute value Gram matrix \cite{Elad2010}. Gram matrix is defined as $\boldsymbol{G}=\boldsymbol{A'}\boldsymbol{A}$ where we are considering conjugate transpose of the matrix $\boldsymbol{A}$. To read the coherence from Gram matrix, we reject the diagonal elements since they correspond to the inner product of an atom with itself (for a properly normalized dictionary they should be 1 anyway). Since $\boldsymbol{G}$ is symmetric we need to look only upper triangular half of it to read off the coherence. The value of coherence $\mu(\boldsymbol{A})$ is equal to largest value in upper triangular part of matrix $\boldsymbol{A}$ with diagonal excluded. It can be shown that $\mu(\boldsymbol{A})\in [\sqrt{\frac{N-M}{M(N-1)}}, 1]$. The lower bound is known as the Welch bound. Note that when $N>>M$, the lower bound is approximately $\mu(\boldsymbol{A})\geq \frac{1}{\sqrt{M}}$ \cite{donoho2003optimally}. In our example with overcomplete dictionary with spikes and sines basis, the coherence exactly corresponds to the Welch bound. That confirms our statement that spikes and sines are mutually completely non-coherent. In \cite{Pereira2014}, a method to design sensing matrices with minimum coherence to a given sparsifying orthogonal basis was proposed. They provided a mathematical proof of the optimality in terms of coherence minimization for the proposed sensing matrices.
 
+\subsubsection{Restricted Isometry Property}
 The prior properties of the CS design matrix provide guarantees of uniqueness when the measurement vector $\boldsymbol{y}$ is obtained without error. There can be two sources of error in measurements: inaccuracies due to noise at sensing stage (in the form of additive noise $\boldsymbol{y}=\boldsymbol{A}\boldsymbol{x}+noise$) and inaccuracies due to mismatches between the design matrix used during recovery and that implemented during acquisition (in the form of multiplicative noise $\boldsymbol{A'}=\boldsymbol{A}+\boldsymbol{A_{noise}}$). Under these sources of error, it is no longer possible to guarantee uniqueness, but it is desirable for the measurement process to be tolerant to both types of error. To be more formal, we would like the distance between the measurement vectors for two sparse signals $\boldsymbol{y}=\boldsymbol{A}\boldsymbol{x}$ and $\boldsymbol{y'}=\boldsymbol{A}\boldsymbol{x'}$ to be proportional to the distance between the original signal vectors $\boldsymbol{x}$ and $\boldsymbol{x'}$. Such a property allows us to guarantee that for small enough noise, two sparse vectors that are far apart from each other cannot lead to the same noisy measurement vector. This behavior has been formalized into the restricted isometry property (\textit{RIP}) \cite{Moreira2014, Romberg2013, CANDES2008589, Blanchard2011}. A matrix $\boldsymbol{A}$ has the $(K,\delta)$-restricted isometry property($(K,\delta)$)-RIP if, for all $\boldsymbol{x}\in\Sigma_K$. In words, the $(K,\delta)$-RIP ensures that all sub-matrices of $\boldsymbol{A}$ of size $M\times K$ are close to an isometry, and therefore are distance-preserving. This property suffices to prove that the recovery is stable to presence of additive noise and the RIP also leads to stability with respect to the multiplicative noise introduced by the CS matrix mismatches $\boldsymbol{A_{noise}}$.
 
+In \cite{Candes2011}, authors provided a simple compressive sensing framework which applies all the standard compressive sensing models with addition of some new ones. They established a probabilistic and RIP-less CS theory that states that the RIP property is not necessarily needed to accurately recover nearly sparse vectors from noisy compressive measurements. This represents a significant advance with application to many real world situations where RIP may be hard to check or even might not hold.
+
+\subsection{Asymptotic Structure in Compressive Sensing}
+CS theory presented in the previous sections presents traditional view on the compressive sensing. In recent years, novel compressive sensing theory was introduced by Roman, Adcock and Hansen in \cite{Adcock2013, Adcock2015, Roman2014, Adcock}. They introduce new pillars of compressive sensing, namely \textit{asymptotic incoherence}, \textit{asymptotic sparsity} and \textit{multilevel sampling} which replace the traditional notion of sparsity, incoherence and uniform random subsampling. Traditional compressive sensing states that the signal sampling strategy is completely independent of the location of the nonzero coefficients at arbitrary locations. In their flip test, they show that sparsity alone does not dictate the compressive sensing reconstruction quality and that the optimal sampling strategy must indeed depend on the signal structure.
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Overview of Algorithms for Sparse Recovery}
+
+In this section we will provide an overview of algorithms for sparse recovery. We can write the sparse recovery problem in the case of noise as the standard $l_0$-norm minimization:
+%
+\begin{equation} \label{eq:l0_minimization_noisy}
+	\min_{\boldsymbol{x}}\Vert\boldsymbol{x}\Vert_0 \quad s.t. \quad \Vert \boldsymbol{y}-\boldsymbol{A}\boldsymbol{x}\Vert_2\leq \epsilon
+\end{equation}
+We previously showed that the intractable $l_0$-norm can easily be replaced by its convex relaxation in the form of $l_1$-norm. Furthermore, $l_1$ minimization can be written in alternative unconstrained form as:
+%
+\begin{equation} \label{eq:lasso_unconstrained}
+	\min_{\boldsymbol{x}}\frac{1}{2}\Vert \boldsymbol{y}-\boldsymbol{A}\boldsymbol{x}\Vert_2^2+\lambda\Vert\boldsymbol{x}\Vert_0
+\end{equation}
+%
+or, for an appropriate parameter $t(\epsilon)$, denoted as $t$, the same problem can be rewritten as:
+\begin{equation} \label{eq:lasso_constrained}
+	\min_{\boldsymbol{x}} \Vert \boldsymbol{y}-\boldsymbol{A}\boldsymbol{x}\Vert_2^2 \quad s.t. \quad \Vert x\Vert_1 \leq t
+\end{equation}
+%
+The above $l_1$ regularized problem in the latter two forms is known as the \textit{LASSO} (Least Absolute Shrinkage and Selection Operator) \cite{tibshirani1996regression}.
+
+A comprehensive overview of algorithms is given in \cite{Zhang2015}. They categorize sparse optimization algorithms into four groups: greedy strategy approximation, constrained optimization, proximity algorithm-based optimization and homotopy algorithm-based sparse optimization. In the greedy strategy approximation for solving sparse representation problem, the target task is mainly to solve the sparse representation method with $l_0$-norm minimization. Because of the fact that this problem is an NP-hard problem , the greedy strategy provides an approximate solution to alleviate this difficulty. The greedy strategy searches for the best local optimal solution in each iteration with the goal of achieving the optimal holistic solution. Some of the most commonly-used greedy methods are: matching pursuit \cite{chen2001atomic}, orthogonal matching pursuit (OMP) \cite{pati1993orthogonal}, stage-wise OMP (StOMP) \cite{donoho2012sparse}, compressive sampling matching pursuit (CoSaMP) \cite{needell2009cosamp} and several others. 
+
+As mentioned before, in the constrained optimization strategy, the core idea is to explore a suitable way to transform a non-differentiable optimization problem into a differentiable optimization problem by replacing the $l_1$-norm minimization term, which is convex but non-smooth, with a differentiable optimization term, which is convex and smooth. Some of constrained optimization strategy based algorithms are: gradient projection sparse reconstruction (GPSR) \cite{figueiredo2007gradient}, least angle regression for \textit{LASSO} (LARS) \cite{efron2004least}...
 
 
-
-
+\section{Applications of Compressive Sensing}
 
 %\hfill mds
  
