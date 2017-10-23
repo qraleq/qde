@@ -18,7 +18,7 @@ hGraph1 = stem([10, 38], spikes);
 
 
 set(hGraph, 'Marker', 'o', 'MarkerSize', 5)
-set(hGraph1, 'Marker', 'o', 'MarkerSize', 5, 'MarkerFace', 'r', 'MarkerEdge', 'r')
+set(hGraph1, 'Marker', 'o', 'MarkerSize', 5, 'MarkerFaceColor', 'auto')
 
 
 set(gca, 'FontSize', 8)

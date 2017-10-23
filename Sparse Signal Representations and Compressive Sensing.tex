@@ -429,7 +429,7 @@
 % As a general rule, do not put math, special symbols or citations
 % in the abstract or keywords.
 \begin{abstract}
-Sparse modeling and compressive sensing are novel methods for signal representation and acquisition. Sparse signal representations are manifestation of the parsimony principle also known as the Occam's razor which states that the simplest and most concise explanation of a natural phenomenon is in most cases the best one possible. Sparse structure appears to be an inherent property of many natural signals. Compressive sensing represents a signal acquisition technique that exploits underlying sparse signal structure and enables accurate signal recovery from an incomplete set of measurements. In this overview, basis representation and sparse decomposition fundamentals and sparse recovery problem formulations are covered and bridged with different practical applications of compressive sensing framework. The most recent advances in the compressive sensing theory and the state-of-the-art applications are presented.
+Sparse modeling and compressive sensing are novel methods for signal representation and acquisition. Sparse signal representations are manifestation of the parsimony principle also known as the Occam's razor which states that the simplest and most concise explanation of a natural phenomenon is in most cases the best one possible. Sparse structure appears to be an inherent property of many natural signals when observed in an appropriate basis. Compressive sensing represents a signal acquisition technique that exploits underlying sparse signal structure and enables accurate signal recovery from an incomplete set of measurements. In this overview, basis representation and sparse decomposition fundamentals and sparse recovery problem formulations are covered and bridged with different practical applications of compressive sensing framework. The most recent advances in the compressive sensing theory and the state-of-the-art applications are presented.
 
 \end{abstract}
 
@@ -477,19 +477,21 @@ Cand\'es, Romberg and Tao considered signal reconstruction from an incomplete fr
 
 Compressive sensing gained more popularity with the emergence of first practical applications. Compressed sensing MRI study by Lustig et al. \cite{Lustig2008} reviewed the requirements for successful compressive sensing reconstruction and described their natural fit to MRI. CS-MRI offered significant scan time reductions with benefits for patients and health care economics. In \cite{duarte2008single}, authors presented a new approach for building simpler, smaller, and cheaper digital cameras that can operate efficiently across a broader spectral range than conventional cameras and established a natural branch of CS named compressive imaging (CI). Their approach fuses a new camera architecture based on a digital micro-mirror device (DMD) with the new compressive sensing mathematical framework and instead of measuring pixel samples of the scene, they measure inner products between the scene and a set of random test functions. This leads to sub-Nyquist image acquisition that enables one to stably reconstruct an image from fewer measurements than the number of reconstructed pixels. Tropp et al. \cite{Tropp2010} proposed a new type of sampling system called a random demodulator that can be used to acquire sparse, band-limited signals. The major advantage of the random demodulator is that it bypasses the need for a high-rate ADC since demodulation is much easier to implement than high-rate sampling. Above mentioned are just some of the numerous applications of compressive sensing and we will give an extended overview later in the text.
 
-In this paper, we will provide an overview of basis representation fundamentals, sparse signal decomposition, sparse recovery problem formulations and different optimization procedures which lead to a definition of complete compressive sensing framework. Paper is organized as follows: section \ref{sec:2}. represents an introduction to sparse signal representations where basis representation and sparse recovery fundamentals are covered, section \ref{sec:3}. introduces overcomplete dictionaries and dictionary learning methods, section \ref{sec:4}. gives an overview of sparse recovery algorithms used in compressive sensing, and finally, section \ref{sec:5}. bridges the theory presented in previous sections with practical applications of compressive sensing.
+In this paper, we will provide an overview of basis representation fundamentals, sparse signal decomposition, sparse recovery problem formulations and different optimization procedures which lead to a definition of complete compressive sensing framework. 
+
+Paper is organized as follows: section~\ref{sec:2} represents an introduction to sparse signal representations where basis representation and sparse recovery fundamentals are covered, section~\ref{sec:3} is an introduction to compressive sensing theory, section~\ref{sec:4} introduces overcomplete dictionaries and dictionary learning methods, section~\ref{sec:4} gives an overview of sparse recovery algorithms used in compressive sensing, and finally, section~\ref{sec:5} bridges the theory presented in previous sections with practical applications of compressive sensing.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Sparse Signal Modeling} \label{sec:1}
+\section{Sparse Signal Modeling} \label{sec:2}
 \subsection{Basis Representation Fundamentals}
 To introduce the notion of sparsity, we rely on a basis decomposition that results in a low-dimensional representation of the observed signal. Every signal $\boldsymbol{x}\in\mathbf{R}^N$ is representable in terms of $N$ coefficients $\{s_i\}_{i=1}^N$ in a given basis $\{\psi_i\}_{i=1}^{N}$ for $\mathbf{R}^N$ as:
 %
 \begin{equation} \label{eq:basis_rep}
-	\boldsymbol{x}= \sum\limits_{i=1}^N \boldsymbol{\psi}_i \boldsymbol{s}_i
+	\boldsymbol{x}= \sum\limits_{i=1}^N {\psi}_i {s}_i
 \end{equation}
 %
-Arranging the $\boldsymbol{\psi}_i$ as columns into the $N\times N$ matrix $\boldsymbol{\Psi}$ and the coefficients $s_i$ into the $N\times 1$ coefficient vector $\boldsymbol{s}$, we can write that $\boldsymbol{x}=\boldsymbol{\Psi} \boldsymbol{s}$, with $\boldsymbol{s}\in\mathbf{R}^N$. We say that signal $\boldsymbol{x}$ is $K$-sparse in the basis $\boldsymbol{\Psi}$ if there exists a vector $\boldsymbol{s}\in\mathbf{R}^N$ with only $K\ll N$ nonzero entries such that $\boldsymbol{x}=\boldsymbol{\Psi} \boldsymbol{s}$. Additionally, by a compressible representation, we mean that the coefficient's magnitudes, when sorted, have a fast power-law decay. Many natural signals are sparse or compressible when observed in an appropriate basis. If we use a frame $\boldsymbol{\Psi}$ containing $N$ unit-norm column vectors of length $L$ with $L<N$ (i.e., $\boldsymbol{\Psi}\in \mathbf{R}^{L\times N}$), then for any  vector $\boldsymbol{x}\in \mathbf{R}^L$ there exist infinitely many decompositions $\boldsymbol{s} \in \mathbf{R}^N$ such that $\boldsymbol{x}=\boldsymbol{\Psi} \boldsymbol{s}$. In a general setting, $\boldsymbol{\Psi}$ is called an overcomplete sparsifying dictionary \cite{Duarte2011}.
+Arranging the ${\psi}_i$ as columns into the $N\times N$ matrix $\boldsymbol{\Psi}$ and the coefficients $s_i$ into the $N\times 1$ coefficient vector $\boldsymbol{s}$, we can write that $\boldsymbol{x}=\boldsymbol{\Psi} \boldsymbol{s}$, with $\boldsymbol{s}\in\mathbf{R}^N$. We say that signal $\boldsymbol{x}$ is $K$-sparse in the basis $\boldsymbol{\Psi}$ if there exists a vector $\boldsymbol{s}\in\mathbf{R}^N$ with only $K\ll N$ nonzero entries such that $\boldsymbol{x}=\boldsymbol{\Psi} \boldsymbol{s}$. Additionally, by a compressible representation, we mean that the coefficient's magnitudes, when sorted, have a fast power-law decay. Many natural signals are sparse or compressible when observed in an appropriate basis. If we use a frame $\boldsymbol{\Psi}$ containing $N$ unit-norm column vectors of length $L$ with $L<N$ (i.e., $\boldsymbol{\Psi}\in \mathbf{R}^{L\times N}$), then for any  vector $\boldsymbol{x}\in \mathbf{R}^L$ there exist infinitely many decompositions $\boldsymbol{s} \in \mathbf{R}^N$ such that $\boldsymbol{x}=\boldsymbol{\Psi} \boldsymbol{s}$. In a general setting, $\boldsymbol{\Psi}$ is called an overcomplete sparsifying dictionary \cite{Duarte2011}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Motivating Example}
@@ -532,7 +534,7 @@ Now we can create a signal which is a mixture of spikes and sinusoids. As we kno
 		
 	\end{tikzpicture}
 	
-	\caption{Example: a) arbitrary signal which consists of a mixture of two spikes (\textit{red}) and three sines of different frequency (\textit{blue}), b) spectrum of the original sparse signal (\textit{blue}) and minimum energy decomposition using $l_2$-norm. Notice that the spectrum obtained using $l_2$-norm is not sparse. The vertical dashed line separates spike (\textit{left}) and sine (\textit{right}) part of the spectrum}
+	\caption{Example: a) arbitrary signal which consists of a mixture of two spikes (\textit{red}) and three sines of different frequency (\textit{blue}), b) spectrum of the original sparse signal (\textit{blue}) and minimum energy decomposition using $l_2$-norm. Notice that the spectrum obtained using $l_2$-norm is not sparse. The vertical dashed line separates spike (\textit{left}) and sine (\textit{right}) part of the spectrum.}
 	
 	\label{fig:example_signal_spectrum}
 \end{figure}
@@ -595,16 +597,14 @@ Using the cardinality function ($l_0$-norm), we can now write the problem of spa
 %
 The above optimization problem is NP-hard and no known algorithm can solve it efficiently in polynomial time. Therefore, approximations have to be introduced. Under appropriate conditions the optimal solution can be recovered efficiently by certain approximate techniques.
 
-First approach to approximation is a heuristic-based search such as greedy search. In greedy search method, one can start with a zero vector and keep adding nonzero coefficients one by one, selecting at each step the coefficient that leads to the best improvement in the objective function (greedy coordinate descent). In general, such heuristic search methods are not guaranteed to find the global optimum. However, in practice, they are simple to implement, computationally efficient and under certain conditions they are even guaranteed to recover the optimal solution.
+First approach to approximation is a heuristic-based search such as greedy search. In greedy search method, one can start with a zero vector and keep adding nonzero coefficients one by one, selecting at each step the coefficient that leads to the best improvement in the objective function. In general, such heuristic search methods are not guaranteed to find the global optimum. However, in practice, they are simple to implement, computationally efficient and under certain conditions they are even guaranteed to recover the optimal solution.
 
 An alternative approximation technique is the relaxation approach based on replacing an intractable objective function or constraint by a tractable one. In other words, one can either solve the exact problem approximately using greedy methods, or solve an approximate problem exactly using relaxations of the original problem. In the following section, we will discuss $l_q$-norm based relaxations, and show that the $l_1$-norm occupies a unique position among them, combining convexity with sparsity. Convex problems are easier to solve than general optimization problems because of the important property that any local minima of a convex function is also a global one~\cite{Rish2015}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Convex Relaxations of Sparse Recovery Problem}
 
-% SKRATITI OVO, DOSTA NEPOTREBNOG OBJAŠNJAVANJA
-
-We will focus on different $l_q$-norms as possible relaxations of the $l_0$-norm. These functions are convex for $q\geq 1$ and non-convex for $q<1$. For example, $l_2$-norm (Euclidean norm) would be a natural first choice as a relaxation of $l_0$-norm because of its convexity and the existence of closed form solution. However, we already showed that solution obtained using $l_2$-norm reconstruction in not sparse.
+We will now focus on different $l_q$-norms as possible relaxations of the $l_0$-norm. These functions are convex for $q\geq 1$ and non-convex for $q<1$. For example, $l_2$-norm (Euclidean norm) would be a natural first choice as a relaxation of $l_0$-norm because of its convexity and the existence of closed form solution. However, we already showed that solution obtained using $l_2$-norm reconstruction in not sparse.
 %
 %Our sparse recovery problem using $l_2$-norm writes:
 %%
@@ -622,14 +622,12 @@ We will focus on different $l_q$-norms as possible relaxations of the $l_0$-norm
 %\end{equation}
 %
 %Sets of vectors with same value of the function $f(\boldsymbol{x})$, i.e. $f(\boldsymbol{x})=const$, are called the level sets of $f(\boldsymbol{x})$. For example, the level sets of $\Vert \boldsymbol{x}\Vert_q^q$ function are vector sets with same $l_q$-norm. A set of vectors satisfying $\Vert \boldsymbol{x}\Vert_q^q \leq r^q$ is called an $l_q$-ball of radius $r$; its “surface” (set boundary) is the corresponding level set $\Vert \boldsymbol{x}\Vert_q^q = r^q$. Note that the corresponding $l_q$-balls bounded by the level sets are convex for $q\geq 1$ (line segments between a pair of its points belong to the ball), and non-convex for $0<q<1$ (line segments between a pair of its points do not always belong to the ball).
-Note that when $q\leq 1$, $l_q$-balls have sharp “corners” on the coordinate axis, corresponding to sparse vectors, since some of their coordinates are zero, but $l_q$-balls for $q>1$ do not have this property. Thus, for $q \leq 1$, $l_q$-balls are likely to meet the hyperplane $\boldsymbol{y}=\boldsymbol{A} \boldsymbol{x}$ at the corners, thus producing sparse solutions, while for $q>1$ the intersection practically never occurs at the axes, and thus solutions are not sparse (see~Fig.~\ref{fig:lq_balls}a).
-
 
 From a geometric point of view, solving the sparse recovery problem is equivalent to “blowing up” $l_q$-balls with the center at the origin, i.e., increasing their radius, starting from 0, until they touch the hyperplane $\boldsymbol{y}=\boldsymbol{A} \boldsymbol{x}$. The resulting point is the minimum $l_q$-norm vector that is also a feasible point, i.e. it is the optimal solution of the sparse recovery problem (see~Fig.~\ref{fig:lq_balls}b).
 
+Note that when $q\leq 1$, $l_q$-balls have sharp “corners” on the coordinate axis, corresponding to sparse vectors, since some of their coordinates are zero, but $l_q$-balls for $q>1$ do not have this property. Thus, for $q \leq 1$, $l_q$-balls are likely to meet the hyperplane $\boldsymbol{y}=\boldsymbol{A} \boldsymbol{x}$ at the corners, thus producing sparse solutions, while for $q>1$ the intersection practically never occurs at the axes, and thus solutions are not sparse (see~Fig.~\ref{fig:lq_balls}a).
 
-
-Within the family of $l_q$-norms, only those with $q\geq 1$ are convex, but only those with $0<q\leq 1$ are sparsity-enforcing. The only function within that family that has both useful properties is therefore $\Vert \boldsymbol{x}\Vert_1$, i.e.the $l_1$-norm \cite{Rish2015}. This unique combination of sparsity and convexity is the reason for the widespread use of $l_1$-norms in the modern sparse signal recovery field. Optimization problem using $l_1$-norm writes:
+Within the family of $l_q$-norms, only those with $q\geq 1$ are convex, but only those with $0<q\leq 1$ are sparsity-enforcing. The only function within that family that has both useful properties is therefore $\Vert \boldsymbol{x}\Vert_1$, i.e. the $l_1$-norm \cite{Rish2015}. This unique combination of sparsity and convexity is the reason for the widespread use of $l_1$-norms in the modern sparse signal recovery field. Optimization problem using $l_1$-norm writes:
 \begin{equation} \label{eq:l1_optimization}
 	\min\limits_{\boldsymbol{x}}\Vert \boldsymbol{x}\Vert_1 \quad s.t. \quad \boldsymbol{y}=\boldsymbol{A} \boldsymbol{x}
 \end{equation}
@@ -661,8 +659,8 @@ Within the family of $l_q$-norms, only those with $q\geq 1$ are convex, but only
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Compressive Sensing Theoretical Framework} \label{sec:2}
-Compressive sensing (CS) offers a framework for simultaneous sensing and compression of finite-dimensional vectors, that relies on dimensionality reduction. In compressive sensing, the signal is not measured via standard point samples but rather through the projection by a measurement matrix $\boldsymbol{\Phi}$:
+\section{Compressive Sensing Theoretical Framework} \label{sec:3}
+Compressive sensing (CS) offers a theoretical framework for simultaneous sensing and compression of finite-dimensional vectors, that relies on dimensionality reduction. In compressive sensing, the signal is not measured via standard point samples but rather through the projection by a measurement matrix $\boldsymbol{\Phi}$:
 %
 \begin{equation}
 	\boldsymbol{y}=\boldsymbol{\Phi} \boldsymbol{x}=\boldsymbol{\Phi} \boldsymbol{\Psi} \boldsymbol{s}=\boldsymbol{A} \boldsymbol{s}
@@ -684,7 +682,7 @@ where $\boldsymbol{\Phi}$ is an $M\times N$ measurement matrix and $\boldsymbol{
 
 
 
-Ideally, the measurement matrix $\boldsymbol{\Phi}$ is designed to reduce the number of measurements $M$ as much as possible while allowing for recovery of a wide class of signals and providing non-adaptive sampling scheme. However, the fact that $M<N$ renders the matrix rank-deficient, meaning that it has a nonempty null-space, which in turn implies that for any particular signal $\boldsymbol{x}_0\in \mathbf{R}$, an infinite number of signals will yield the same measurements $\boldsymbol{y}_0=\boldsymbol{\Phi} \boldsymbol{x}_0 = \boldsymbol{\Phi} \boldsymbol{x}$ for chosen measurement matrix $\boldsymbol{\Phi}$. The motivation behind the design of the matrix $\boldsymbol{\Phi}$ is to allow for distinct signals ($x,\,x'$) within a class of signals of interest to be uniquely identifiable using sparse optimization techniques from their measurements ($y,\,y'$), even though $M\ll N$ \cite{Duarte2011}.
+Ideally, the measurement matrix $\boldsymbol{\Phi}$ is designed to reduce the number of measurements $M$ as much as possible while allowing for recovery of a wide class of signals and providing non-adaptive sampling scheme. However, the fact that $M<N$ renders the matrix rank-deficient, meaning that it has a nonempty null-space, which in turn implies that for any particular signal $\boldsymbol{x}_0\in \mathbf{R}$, an infinite number of signals will yield the same measurements $\boldsymbol{y}_0=\boldsymbol{\Phi} \boldsymbol{x}_0 = \boldsymbol{\Phi} \boldsymbol{x}$ for chosen measurement matrix $\boldsymbol{\Phi}$. The motivation behind the design of the matrix $\boldsymbol{\Phi}$ is to allow for distinct signals ($\boldsymbol{x},\,\boldsymbol{x'}$) within a class of signals of interest to be uniquely identifiable using sparse optimization techniques from their measurements ($\boldsymbol{y},\,\boldsymbol{y'}$), even though $M\ll N$~\cite{Duarte2011}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Uniqueness of Compressive Sensing Recovery Problem}
@@ -701,7 +699,7 @@ A key relevant property of the matrix in this context is its spark \cite{donoho2
 	spark(\boldsymbol{A})=krank(\boldsymbol{A})+1\quad \text{and} \quad rank(\boldsymbol{A})\geq krank(\boldsymbol{A})
 \end{equation}
 
-By definition, the vectors in the null-space of the matrix $\boldsymbol{A}\boldsymbol{x}=0$ must satisfy $\Vert x\Vert_0\geq spark(\boldsymbol{A})$, since these vectors linearly combine columns from $\boldsymbol{A}$ to give the zero vector, and at least \textit{spark} such columns are necessary by definition. Sparse recovery solution uniqueness via spark can be stated as: if $spark(\boldsymbol{A})>2K$, then for each measurement vector $\boldsymbol{y}\in\mathbf{R}^M$ there exists at most one signal $\boldsymbol{x}\in\Sigma_K$ such that $\boldsymbol{y}=\boldsymbol{A}\boldsymbol{x}$ \cite{Rish2015}. The singleton bound yields that the highest spark of an matrix $\boldsymbol{A}\in\mathbf{R}^{M\times N}$ with $M<N$ is less than or equal to $M+1$ and using the before stated theorems we get the requirement $M\geq 2K$.
+By definition, the vectors in the null-space of the matrix $\boldsymbol{A}\boldsymbol{x}=\boldsymbol{0}$ must satisfy $\Vert \boldsymbol{x}\Vert_0\geq spark(\boldsymbol{A})$, since these vectors linearly combine columns from $\boldsymbol{A}$ to give the zero vector, and at least \textit{spark} such columns are necessary by definition. Sparse recovery solution uniqueness via spark can be stated as: if $spark(\boldsymbol{A})>2K$, then for each measurement vector $\boldsymbol{y}\in\mathbf{R}^M$ there exists at most one signal $\boldsymbol{x}\in\Sigma_K$ such that $\boldsymbol{y}=\boldsymbol{A}\boldsymbol{x}$ \cite{Rish2015}. The singleton bound yields that the highest spark of an matrix $\boldsymbol{A}\in\mathbf{R}^{M\times N}$ with $M<N$ is less than or equal to $M+1$ and using the before stated theorems we get the requirement $M\geq 2K$.
 
 While \textit{spark} is useful notion for proving the exact recovery of a sparse optimization problem, it is NP-hard to compute since one must verify that all sets of columns of a certain size are linearly independent. Thus, it is preferable to use properties of $\boldsymbol{A}$ which are easily computable to provide recovery guarantees.
 
@@ -717,28 +715,36 @@ For any matrix $\boldsymbol{A}$,
 \begin{equation} \label{eq:coherence_spark}
 	spark(\boldsymbol{A})\geq 1+\frac{1}{\mu(\boldsymbol{A})}
 \end{equation}
-
+%
 %Quite simple way to read the coherence is from the absolute value Gram matrix \cite{Elad2010}. Gram matrix is defined as $\boldsymbol{G}=\boldsymbol{A'}\boldsymbol{A}$ where we are considering conjugate transpose of the matrix $\boldsymbol{A}$. To read the coherence from Gram matrix, we reject the diagonal elements since they correspond to the inner product of an atom with itself (for a properly normalized dictionary they should be 1 anyway). Since $\boldsymbol{G}$ is symmetric we need to look only upper triangular half of it to read off the coherence. The value of coherence $\mu(\boldsymbol{A})$ is equal to largest value in upper triangular part of matrix $\boldsymbol{A}$ with diagonal excluded. 
-
-It can be shown that $\mu(\boldsymbol{A})\in \big[\sqrt{\frac{N-M}{M(N-1)}}, 1\big]$. The lower bound is known as the Welch bound. Note that when $N>>M$, the lower bound is approximately $\mu(\boldsymbol{A})\geq \frac{1}{\sqrt{M}}$ \cite{donoho2003optimally}. In our example with overcomplete dictionary with spikes and sines basis, the coherence exactly corresponds to the Welch bound. That confirms our statement that spikes and sines are mutually completely incoherent. In \cite{Pereira2014}, a method to design sensing matrices with minimum coherence to a given sparsifying orthogonal basis was proposed. They provided a mathematical proof of the optimality in terms of coherence minimization for the proposed sensing matrices.
+%
+It can be shown that $\mu(\boldsymbol{A})\in \big[\sqrt{\frac{N-M}{M(N-1)}}, 1\big]$. The lower bound is known as the Welch bound. Note that when $N>>M$, the lower bound is approximately $\mu(\boldsymbol{A})\geq \frac{1}{\sqrt{M}}$~\cite{donoho2003optimally}. In our example with overcomplete dictionary with spikes and sines basis, the coherence exactly corresponds to the Welch bound. That confirms our statement that spikes and sines are mutually completely incoherent. In~\cite{Pereira2014}, a method to design sensing matrices with minimum coherence to a given sparsifying orthogonal basis was proposed. They provided a mathematical proof of the optimality in terms of coherence minimization for the proposed sensing matrices.
 
 \subsubsection{Restricted Isometry Property}
 The prior properties of the CS design matrix provide guarantees of uniqueness when the measurement vector $\boldsymbol{y}$ is obtained without error. There can be two sources of error in the measurements: inaccuracies due to noise at sensing stage (in the form of additive noise $\boldsymbol{y}=\boldsymbol{A}\boldsymbol{x}+noise$) and inaccuracies due to mismatches between the design matrix used during recovery and that implemented during acquisition (in the form of multiplicative noise $\boldsymbol{A'}=\boldsymbol{A}+\boldsymbol{A}_{noise}$). Under these sources of error, it is no longer possible to guarantee uniqueness, but it is desirable for the measurement process to be tolerant to both types of error. To be more formal, we would like the distance between the measurement vectors for two sparse signals $\boldsymbol{y}=\boldsymbol{A}\boldsymbol{x}$ and $\boldsymbol{y'}=\boldsymbol{A}\boldsymbol{x'}$ to be proportional to the distance between the original signal vectors $\boldsymbol{x}$ and $\boldsymbol{x'}$. Such a property allows us to guarantee that for small enough noise, two sparse vectors that are far apart from each other cannot lead to the same noisy measurement vector. This behavior has been formalized into the restricted isometry property (\textit{RIP}) \cite{Moreira2014, Romberg2013, CANDES2008589, Blanchard2011}. 
 
-A matrix $\boldsymbol{A}$ has the $(K,\delta)$-restricted isometry property ($(K,\delta)$-RIP) if, for all $\boldsymbol{x}\in\Sigma_K$,
+A matrix $M\times N$ $\boldsymbol{A}$ is said to satisfy the $(K,\delta)$-restricted isometry property ($(K,\delta)$-RIP) if, for all $\boldsymbol{x}\in\Sigma_K$:
 
 \begin{equation} \label{eq:rip}
 	(1-\delta)\Vert \boldsymbol{x}\Vert^2_2\leq\Vert\boldsymbol{\Phi }\boldsymbol{x}\Vert_2^2\leq(1+\delta)\Vert\boldsymbol{x}\Vert_2^2
 \end{equation}
 %
-In words, the $(K,\delta)$-RIP ensures that all sub-matrices of $\boldsymbol{A}$ of size $M\times K$ are close to an isometry, and therefore are distance-preserving. This property suffices to prove that the recovery is stable to presence of additive noise and the RIP also leads to stability with respect to the multiplicative noise.
+where $\Sigma_K$ represents the set of all length-$N$ vectors with $K$ non-zero coefficients and $\delta \in (0,1)$. In words, the $(K,\delta)$-RIP ensures that all sub-matrices of $\boldsymbol{A}$ of size $M\times K$ are close to an isometry, and therefore are distance-preserving. This property suffices to prove that the recovery is stable to presence of additive noise and the RIP also leads to stability with respect to the multiplicative noise.
 
-In \cite{Candes2011}, authors provided a simple compressive sensing framework which applies all the standard compressive sensing models with addition of some new ones. They established a probabilistic and RIP-less CS theory that states that the RIP property is not necessarily needed to accurately recover nearly sparse vectors from noisy compressive measurements. This represents a significant advance with application to many real world situations where RIP may be hard to check or even might not hold.
+The definition of the RIP is closely related to the frame theory and Riesz bases which were developed in \cite{duffin1952class} to provide theoretical framework for band-limited signal reconstruction from irregularly spaced samples. RIP is consistent with the thought of spreading energy behind random sensing matrices so measurement $\boldsymbol{y}$ does not shrink or expand too much comparing to the original signal $\boldsymbol{x}$. RIP can be viewed as a modified frame theory:
+%
+\begin{equation} \label{eq:frame}
+	A\Vert \boldsymbol{x}\Vert^2\leq\Vert\boldsymbol{\Phi }\boldsymbol{x}\Vert^2\leq B\Vert\boldsymbol{x}\Vert^2
+\end{equation}
+%
+where the frame bounds are $0<A\leq B \leq 2$.
+
+In~\cite{Candes2011}, authors provided a simple compressive sensing framework which applies all the standard compressive sensing models with addition of some new ones. They established a probabilistic and RIP-less CS theory that states that the RIP property is not necessarily needed to accurately recover nearly sparse vectors from noisy compressive measurements. This represents a significant advance with application to many real world situations where RIP may be hard to check or even might not hold.
 
 \subsection{Asymptotic Structure in Compressive Sensing}
-CS theory presented in the previous sections presents traditional view on the compressive sensing. In recent years, novel compressive sensing theory was introduced by Roman, Adcock and Hansen in \cite{Adcock2013, Adcock2015, Roman2014, Adcock}. They introduce new pillars of compressive sensing, namely \textit{asymptotic incoherence}, \textit{asymptotic sparsity} and \textit{multilevel sampling} which replace the traditional notion of sparsity (there are $K$ important coefficients in the vector to be recovered and their location is arbitrary), incoherence (values in the measurement matrix should be dense and uniformly spread out) and uniform random subsampling. Traditional compressive sensing states that the signal sampling strategy is completely independent of the location of the nonzero coefficients. In their flip test, they show that sparsity alone does not dictate the compressive sensing reconstruction quality and that the optimal sampling strategy must indeed depend on the signal structure.
+CS theory presented in the previous sections presents traditional view on the compressive sensing. In recent years, novel compressive sensing theory was introduced by Roman, Adcock and Hansen in \cite{Adcock2013, Adcock2015, Roman2014, Adcock}. They introduce new pillars of compressive sensing, namely \textit{asymptotic incoherence}, \textit{asymptotic sparsity} and \textit{multilevel sampling} which replace the traditional notion of sparsity (there are $K$ important coefficients in the vector to be recovered and their location is arbitrary), incoherence (values in the measurement matrix should be dense and uniformly spread out) and uniform random subsampling. Traditional compressive sensing states that the signal sampling strategy is completely independent of the location of the nonzero coefficients. In their flip test, Adcock et al. show that sparsity alone does not dictate the compressive sensing reconstruction quality and that the optimal sampling strategy must indeed depend on the signal structure.
 
-Assume that $\boldsymbol{x}$ is an image vector, $\boldsymbol{\Phi}$ is some measurement matrix and $\boldsymbol{\Psi}$ is a transformation basis matrix. We can define new matrix $\boldsymbol{A}=\boldsymbol{R}_\Omega \boldsymbol{\Phi}\boldsymbol{\Psi}$ where $\boldsymbol{R_\Omega}$ is reduction matrix corresponding to some subsampling pattern $\Omega \subseteq \{1,...,N\}$ with $\vert \Omega\vert = M$ and our measurement vector as $\boldsymbol{y}=\boldsymbol{R}_\Omega\boldsymbol{\Phi}\boldsymbol{x}$. We can now solve standard sparse optimization problem in the form of Eq. \ref{eq:l1_optimization} and obtain sparse representation $\boldsymbol{s}$ of the image. If the sparsity is the right model as traditional CS theory states, we should be able to flip the reconstructed coefficients to obtain $\boldsymbol{s}_f$ since $\Vert\boldsymbol{s}\Vert_0=\Vert\boldsymbol{s}_f\Vert_0$. Next, we can define new measurement vector using the flipped coefficients $\boldsymbol{\tilde{y}}=\boldsymbol{\Phi}\boldsymbol{\Psi}\boldsymbol{s}_f$ and again solve the sparse optimization problem using the new measurement vector $\boldsymbol{\tilde{y}}$ and get the estimation of the sparse vector $\boldsymbol{s}_{f}'$ which we flip again to get $\boldsymbol{{s'}}$. The image estimation $\boldsymbol{{x'}}$ is then calculated as $\boldsymbol{{x}'}=\boldsymbol{\Psi}\boldsymbol{{s'}}$. If sparsity is the right model, estimation using the direct coefficient recovery should be equal to flipped coefficients recovery $\boldsymbol{{x}=\boldsymbol{x'}}$ which is not the case, as shown in Fig.~\ref{fig:flip_test_reconstruction}. 
+Assume that $\boldsymbol{x}$ is an image vector, $\boldsymbol{\Phi}$ is some measurement matrix and $\boldsymbol{\Psi}$ is a transformation basis matrix. We can define new matrix $\boldsymbol{A}=\boldsymbol{R}_\Omega \boldsymbol{\Phi}\boldsymbol{\Psi}$, where $\boldsymbol{R_\Omega}$ is reduction matrix corresponding to some subsampling pattern $\Omega \subseteq \{1,...,N\}$ with $\vert \Omega\vert = M$, and our measurement vector as $\boldsymbol{y}=\boldsymbol{R}_\Omega\boldsymbol{\Phi}\boldsymbol{\Psi}\boldsymbol{s}=\boldsymbol{A}\boldsymbol{s}$. We can now solve standard sparse optimization problem in the form of Eq. \ref{eq:l1_optimization} and obtain sparse representation $\boldsymbol{s}$ of the image. If the sparsity is the right model as traditional CS theory states, we should be able to flip the reconstructed coefficients to obtain $\boldsymbol{s}_f$ since $\Vert\boldsymbol{s}\Vert_0=\Vert\boldsymbol{s}_f\Vert_0$. Next, we can define new measurement vector using the flipped coefficients $\boldsymbol{{y'}}=\boldsymbol{A}\boldsymbol{s}_f$ and again solve the sparse optimization problem using the new measurement vector $\boldsymbol{{y'}}$ and get the estimation of the sparse vector $\boldsymbol{s}_{f}'$ which we flip again to get $\boldsymbol{{s'}}$. The image estimation $\boldsymbol{{x'}}$ is then calculated as $\boldsymbol{{x}'}=\boldsymbol{\Psi}\boldsymbol{{s'}}$. If sparsity is the right model, estimation using the direct coefficient recovery should be equal to flipped coefficients recovery $\boldsymbol{{x}=\boldsymbol{x'}}$ which is not the case, as shown in Fig.~\ref{fig:flip_test_reconstruction}. 
 
 %\begin{equation}
 %	\min_{\boldsymbol{s}} \Vert s\Vert_1 \quad s.t. \quad \boldsymbol{A}\boldsymbol{s}=\boldsymbol{y} 
@@ -748,14 +754,14 @@ Assume that $\boldsymbol{x}$ is an image vector, $\boldsymbol{\Phi}$ is some mea
 	\centering
 	\begin{tikzpicture}
 	\node[anchor=center, inner sep = 0](rec1) at (0,0)
-	{\includegraphics[width=4.3cm]{figures/flip_test_reconstruction_normal.pdf}};
+	{\includegraphics[width=4.3cm, height=4cm]{figures/flip_test_reconstruction_normal.pdf}};
 	
 	\node[anchor=center, inner sep = 0](rec1) at (4.5,0)
-	{\includegraphics[width=4.3cm]{figures/flip_test_reconstruction_flip.pdf}};
+	{\includegraphics[width=4.3cm, height=4cm]{figures/flip_test_reconstruction_flip.pdf}};
 	\end{tikzpicture}
 	
 	
-	\caption{Flip test performed on \textit{Lenna} image. Left image shows recovery from direct wavelet coefficients while right image shows reconstruction using flipped coefficients. Measurement matrix used in the flip test is Walsh-Hadamard matrix, and the transformation basis is Haar's wavelet. Flipped coefficients recovery is substantially worse than the direct coefficient recovery.}
+	\caption{Flip test performed on \textit{Barb} image. Left image shows recovery from direct wavelet coefficients while right image shows reconstruction using flipped coefficients. Measurement matrix used in the flip test is Walsh-Hadamard matrix, and the transformation basis is Haar's wavelet. Flipped coefficients recovery is substantially worse than the direct coefficient recovery.}
 	
 	\label{fig:flip_test_reconstruction}
 \end{figure}
@@ -768,11 +774,11 @@ To overcome these problems, structured measurement matrices were proposed and \c
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Overcomplete Dictionaries and Dictionary Learning} \label{sec:3}
+\section{Overcomplete Dictionaries and Dictionary Learning} \label{sec:4}
 
 Sparsifying basis that leads to sparse representations of signals can either be chosen as a pre-specified set of basis functions, or designed by adapting the functions to fit a given set of signal examples. We refer to the first approach as analytic approach in which a mathematical model of the data is formulated, and an analytic construction is developed to efficiently represent the model. This procedure leads to implicit dictionaries which have efficient implementations, but lack adaptability. Some examples of implicit dictionaries are: Fourier basis, wavelets \cite{daubechies1992ten}, curvelets \cite{starck2002curvelet}, contourlets \cite{do2002contourlets}, shearlets \cite{guo2007optimally} and bandelets \cite{le2005sparse}. 
 
-The second approach suggests using machine learning techniques to infer the dictionary from a set of examples \cite{olshausen1996emergence, Petrov2012, Rubinstein, Christen2010}. In this case, the dictionary is typically represented as an explicit matrix, and a training algorithm is employed to adapt the matrix coefficients to the examples and the final goal is to find the dictionary $\boldsymbol{D}$ that yields the sparsest representation of the training signals. 
+The second approach suggests using machine learning techniques to infer the dictionary from a set of examples~\cite{olshausen1996emergence, Petrov2012, Rubinstein, Christen2010}. In this case, the dictionary is typically represented as an explicit matrix, and a training algorithm is employed to adapt the matrix coefficients to the examples and the final goal is to find the dictionary $\boldsymbol{D}$ that yields the sparsest representation of the training signals. 
 
 The ultimate sparse-coding objective is to find both $\boldsymbol{D}$ and $\boldsymbol{X}$ that yield the sparsest representation of the data $\boldsymbol{Y}$, subject to some acceptable approximation error $\epsilon$:
 
@@ -781,10 +787,41 @@ The ultimate sparse-coding objective is to find both $\boldsymbol{D}$ and $\bold
 \end{equation}
 
 Note that this problem formulation looks very similar to the classical sparse signal recovery problem, only with two modifications: dictionary $\boldsymbol{D}$ is now included as an unknown variable that we must optimize over, and there are multiple observed samples and the corresponding sparse signals rather than just one. 
-
+%
+\begin{figure}[h]
+	
+	\begin{tikzpicture}
+	\node[anchor=center, inner sep = 0](rec1) at (0,0)
+	{\includegraphics[width=9cm]{figures/dictionary_learning.png}};
+	
+	\end{tikzpicture}
+		
+	\caption{Dictionary learning matrix form representation \cite{Rish2015}.}
+	
+	\label{fig:dictionary_learning}
+	
+\end{figure}
 Several different dictionary learning algorithms have been introduced over the past years: method of optimal directions (MOD) \cite{engan1999method}, K-SVD \cite{Aharon2006} and online-dictionary learning \cite{mairal2010online} are the most popular ones. First two methods are batch methods which attempt to learn a dictionary directly from the full data set which makes them computationally inefficient. Third method belongs to a family of online dictionary learning methods where learning is done incrementally, one training sample (or a batch of samples) at a time, which makes them scale better in applications where a very large number of training examples exists.
+%
+\begin{figure}[tbp]
+	\centering
+	\begin{tikzpicture}
+	\node[anchor=center, inner sep = 0](rec1) at (0,0)
+	{\includegraphics[width=4.3cm, height=4cm]{figures/dct_dict.pdf}};
+	
+	\node[anchor=center, inner sep = 0](rec1) at (4.5,0)
+	{\includegraphics[width=4.3cm, height=4cm]{figures/learned_dict.pdf}};
+	\end{tikzpicture}
+	
+	
+	\caption{Dictionary learning performed on \textit{Barb} image. Left image shows part of initial overcomplete DCT dictionary and right image shows part of the learned dictionary using online dictionary learning algorithm. Notice that the high-frequency content that is image specific is captured in the learned dictionary.}
+	
+	\label{fig:flip_test_reconstruction}
+\end{figure}
 
-In \cite{Rubinstein2010}, an efficient and flexible dictionary structure is proposed which bridges the gap between implicit dictionaries, which have efficient implementations yet lack adaptability, and explicit dictionaries, which are fully adaptable but costly in terms of computational resources. The proposed sparse dictionary is based on a sparsity model of the dictionary atoms over a base dictionary, and takes the form $\boldsymbol{D}=\boldsymbol{\Psi}\boldsymbol{A}$ where $\boldsymbol{\Psi}$ is a fixed base dictionary and $\boldsymbol{A}$ is sparse. The sparse dictionary model suggests that each atom of the dictionary has itself a sparse representation over some prespecified base dictionary $\boldsymbol{\Psi}$ (Figure \ref{fig:double_sparsity}).
+
+
+In \cite{Rubinstein2010}, an efficient and flexible dictionary structure is proposed which bridges the gap between implicit dictionaries, which have efficient implementations yet lack adaptability, and explicit dictionaries, which are fully adaptable but costly in terms of computational resources. The proposed sparse dictionary is based on a sparsity model of the dictionary atoms over a base dictionary, and takes the form $\boldsymbol{D}=\boldsymbol{\Psi}\boldsymbol{A}$ where $\boldsymbol{\Psi}$ is a fixed base dictionary and $\boldsymbol{A}$ is sparse. The sparse dictionary model suggests that each atom of the dictionary has itself a sparse representation over some prespecified base dictionary $\boldsymbol{\Psi}$ (see Fig.~\ref{fig:double_sparsity}).
 
 \begin{figure}
 	\includegraphics[width=8.6cm]{figures/double_sparsity}
@@ -796,11 +833,9 @@ In \cite{Rubinstein2010}, an efficient and flexible dictionary structure is prop
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Overview of Algorithms for Sparse Recovery} \label{sec:4}
+\section{Overview of Algorithms for Sparse Recovery} \label{sec:5}
 
-% MOŽDA NEŠTO O KERNEL CS
-
-In this section we will provide a brief overview of algorithms for sparse recovery. We can write the sparse recovery problem in the case of noise as convex $l_1$-norm relaxation of the standard $l_0$-norm minimization:
+In this section we will provide a brief overview of algorithms for sparse recovery. We can write the sparse recovery problem in the case of noise as a convex $l_1$-norm relaxation of the standard $l_0$-norm minimization:
 %
 \begin{equation} \label{eq:l0_minimization_noisy}
 	\min_{\boldsymbol{x}}\Vert\boldsymbol{x}\Vert_1 \quad s.t. \quad \Vert \boldsymbol{y}-\boldsymbol{A}\boldsymbol{x}\Vert_2\leq \epsilon
@@ -818,7 +853,7 @@ or, for an appropriate parameter $t(\epsilon)$, denoted as $t$, the same problem
 %
 The above $l_1$ regularized problem in the latter two forms is known as the \textit{LASSO} (Least Absolute Shrinkage and Selection Operator) \cite{tibshirani1996regression}.
 
-A comprehensive overview of algorithms is given in \cite{Zhang2015}. They categorize sparse optimization algorithms into four groups: greedy strategy approximation, constrained optimization, proximity algorithm-based optimization and homotopy algorithm-based sparse optimization. 
+A comprehensive overview of sparse recovery algorithms is given in \cite{Zhang2015}. They categorize sparse optimization algorithms into four groups: greedy strategy approximation, constrained optimization, proximity algorithm-based optimization and homotopy algorithm-based sparse optimization. 
 
 In the greedy strategy approximation for solving sparse representation problem, the target task is mainly to solve the sparse representation method with $l_0$-norm minimization. Because of the fact that this problem is an NP-hard problem , the greedy strategy provides an approximate solution to alleviate this difficulty. The greedy strategy searches for the best local optimal solution in each iteration with the goal of achieving the optimal holistic solution. Some of the most commonly-used greedy methods are: matching pursuit \cite{chen2001atomic}, orthogonal matching pursuit (OMP) \cite{pati1993orthogonal}, stage-wise OMP (StOMP) \cite{donoho2012sparse}, compressive sampling matching pursuit (CoSaMP) \cite{needell2009cosamp} and several others. 
 
@@ -829,68 +864,90 @@ In the proximity algorithm-based optimization strategy for sparse representation
 The main idea of homotopy algorithm-based sparse representation is to solve the original optimization problems by tracing a continuous optimization problems by tracing a continuous parameterized path of solutions along with varying parameters. In contrast to LARS and OMP, the homotopy method is more favorable for sequentially updating the sparse solution by adding or removing elements from the active set. Some of the most representative homotopy based reconstruction methods are \textit{LASSO} homotopy and basis pursuit denoising (BPDN) \cite{Zhang2015}.
 
 In \cite{qi2011using}, authors adapt the kernel trick usually used in machine learning applications to easily adapt linear algorithms to nonlinear situations. They show how the kernel trick can be used to adapt the traditional paradigm of reconstructing a linearly sparse signal from a linear set of measurements to the case of reconstructing a nonlinearly sparse signal from either nonlinear or linear measurements. The key idea is that a signal that is nonlinearly sparse can, with a proper choice of kernel, become linearly sparse in feature space. Then, reconstruction can be performed on random measurements in feature space, which can be obtained from the usual random measurements for some kernels.
+%
+\begin{figure*}[htbp]
+	\centering
+	\begin{tikzpicture}
+	\node[anchor=center, inner sep = 0](rec1) at (0,0)
+	{\includegraphics[width=18cm]{figures/reconnet.png}};
+	
+	\end{tikzpicture}
+	
+	\caption{Overview of deep neural network design for non-iterative block CS image recovery algorithm. The scene is divided into non-overlapping blocks. Each block is reconstructed by feeding in the corresponding CS measurements to the deep network. The reconstructed blocks are then arranged appropriately to form the image reconstruction. The input to the network is an $M$-dimensional vector of compressive measurements, denoted by $\boldsymbol{\Phi}\boldsymbol{x}$, where $\boldsymbol{\Phi}$ is the measurement operator of size $M \times M$ where $M$ is the number of measurements and $\boldsymbol{x}$ is the vectorized image block \cite{Kulkarni2016}.}
+	
+	\label{fig:reconnet}
+\end{figure*}
 
-Deep learning is machine learning method based on learning data representations, as opposed to other task-specific algorithms. A non-iterative and extremely fast algorithms based on deep neural networks have recently been proposed in \cite{Kulkarni2016, Mousavi2017, Mousavi2015}. These papers adapt different designs of deep neural network for application in compressive sensing reconstruction of images. In \cite{Kulkarni2016}, authors propose a novel convolutional neural network (CNN) architecture inspired by the work of Dong et al. \cite{Dong2016} which takes CS measurements of an image as input and outputs an intermediate image reconstruction. They showed that the images reconstructed using convolutional network outperform state-of-the-art iterative CS reconstruction algorithms under certain conditions. Signal recovery framework proposed in \cite{Mousavi2017} learns the inverse transformation from measurement vectors $\boldsymbol{y}$ to signals $\boldsymbol{x}$ using a special deep network architecture. When trained on a set of representative images, the network learns both a representation for the signals $\boldsymbol{x}$ and an inverse map approximating a greedy or convex recovery algorithm.
-
+Recently, machine learning methods for learning data representations started to gain more interest in the area of compressive sensing. A non-iterative and extremely fast algorithms based on deep neural networks have recently been proposed in~\cite{Kulkarni2016, Mousavi2017, Mousavi2015}. These papers adapt different designs of deep neural network for application in compressive sensing reconstruction of images. In \cite{Kulkarni2016}, authors propose a novel convolutional neural network (CNN) architecture inspired by the work of Dong et al. \cite{Dong2016} which takes CS measurements of an image as input and outputs an intermediate image reconstruction. They showed that the images reconstructed using convolutional network outperform state-of-the-art iterative CS reconstruction algorithms under certain conditions. The convolutional neural network design is shown in Fig. \ref{fig:reconnet}. Signal recovery framework proposed in \cite{Mousavi2017} learns the inverse transformation from measurement vectors $\boldsymbol{y}$ to signals $\boldsymbol{x}$ using a special deep network architecture. When trained on a set of representative images, the network learns both a representation for the signals $\boldsymbol{x}$ and an inverse map approximating a greedy or convex recovery algorithm.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Applications of Sparse Representations and Compressive Sensing} \label{sec:5}
+\section{Applications of Sparse Representations and Compressive Sensing} \label{sec:6}
 
 The impact that compressive sensing and sparse signal representations had on the signal processing community is immense. There are numerous applications trying to apply the theoretical CS framework to real world problems. Still, there is a gap between the theoretical knowledge and practical implementations. In this section, we will provide an overview of existing practical applications of sparse representations and compressive sensing.
 
-Signal compression has been a topic of interest for many years thanks to the fact that most of the natural signals are compressible, thus, sparse modeling seems to be a very natural approach to signal compression. Conventional transform coding methods use predefined basis dictionaries to obtain concise representations. While predefined dictionaries are computationally efficient, they are typically limited in the ability to sparsify the observed signals. On the other hand, the proposed dictionary learning methods enable discovery of underlying structure in signals of interest and tend to provide us with sparser representations than conventional methods. In~\cite{nejati2016boosted, horev2012adaptive, skretting2011image} different overcomplete dictionaries are learned and applied to image compression problems and outperform conventional methods. Other applications of dictionary learning include image denoising \cite{Elad2008}, image inpainting \cite{Shen2009, Mairal2008} and image super-resolution \cite{yang2010image, kim2010single, yang2008image}.
+Signal compression has been a topic of interest for many years thanks to the fact that most of the natural signals are compressible in some transformation basis, thus, sparse modeling seems to be a very natural approach to signal compression. Conventional transform coding methods use predefined basis dictionaries to obtain concise representations. While predefined dictionaries are computationally efficient, they are typically limited in the ability to sparsify the observed signals. On the other hand, the proposed dictionary learning methods enable discovery of underlying structure in signals of interest and tend to provide us with sparser representations than conventional methods. In~\cite{nejati2016boosted, horev2012adaptive, skretting2011image} different overcomplete dictionaries are learned and applied to image compression problems and outperform conventional methods. Other applications of dictionary learning include image denoising \cite{Elad2008}, image inpainting \cite{Shen2009, Mairal2008} and image super-resolution \cite{yang2010image, kim2010single, yang2008image}.
 
-The previously mentioned applications use dictionary learning for purely reconstructive tasks and we refer to such learning approaches as unsupervised learning. The final goal such learning approaches is to minimize the residual of reconstructing the original signals. Sparse signal representations have another natural property of being discriminative in such a way that the obtained signal representation is sparsest possible. This lead to development of different classification methods based on dictionary learning where classification is based on the corresponding reconstruction error \cite{Zhang2010, ZhuolinJiang2013} with applications on face recognition \cite{Wright2009_src} and other classification problems.
+The previously mentioned applications use dictionary learning for purely reconstructive tasks and we refer to such learning approaches as unsupervised learning. The final goal such learning approaches is to minimize the residual of reconstructing the original signals. Sparse signal representations have another natural property of being discriminative in such a way that the obtained signal representation is sparsest possible. This lead to development of different classification methods based on dictionary learning where classification is based on the corresponding reconstruction error \cite{Zhang2010, ZhuolinJiang2013} with applications on face recognition \cite{Wright2009_src} (see Fig. \ref{fig:face_recognition}) and other classification problems.
 %
-\begin{figure}
+\begin{figure}[h]
 	\centering
 	\begin{tikzpicture}
 		\node[anchor=center](rec1) at (0,0)
 		{\includegraphics[width=8.8cm]{figures/face_recognition.png}};
 	\end{tikzpicture}
+		
+	\caption{Robust face recognition using sparse coding reconstruction error. Proposed method represents a test image as a sparse linear combination of all the training images and classifies test image based on the obtained reconstruction error. \cite{Wright2009_src}}
 	
 	\label{fig:face_recognition}
-	
-	\caption{Robust face recognition .sdaopsfafa kšfnas kšnfaksnf ko šasnfaksonfak nfalkfnalkfnalkf}
 \end{figure}
 
 As already mentioned in the introduction, compressive sensing found its first application in MRI medical imaging because of the existing natural connection. MRI obeys two key requirements for successful application of CS: medical images are naturally compressible by sparse coding in appropriate transform domain and MRI scanners acquire encoded samples, rather than direct pixel samples. Compressive sensing improved acquisition speed and spatial resolution of MRI scans and novel applications like rapid 3D angiography, whole-heart coronary imaging and brain imaging emerged. In \cite{Geethanath2013}, Geethanath et al. give a detailed overview of applications of CS to MRI.
 
 In compressive imaging the central idea is to design encoded, subsampled linear measurements which allow for accurate optimization-based decoding which assumes sparsity in some transform domain. Applications of compressive imaging include fluorescence microscopy, infrared microscopy, single-pixel imaging, light-field reconstructions and several others. Different designs for imaging devices based on compressive sensing have been proposed and each design tackles certain limitation of traditional imaging systems. For example, in~\cite{Reddy2011}, authors propose P2C2 (Programmable Pixel Compressive Camera) camera which consists of a normal 25fps, low resolution video camera in combination with a high resolution, high frame-rate modulating device (DMD or LCoS). This design offers inexpensive and efficient acquisition and recovery of high-resolution, high-speed frames from the captured low-res frames by exploiting temporal redundancy in the form of brightness constancy and spatial redundancy through transform domain sparsity in a convex optimization framework. Similar design was proposed in \cite{Gupta2010} by Gupta et al., where their goal was to build video cameras whose spatio-temporal resolution can be changed post-capture depending on the scene (independently at each image location) eliminating the drawback of traditional cameras which offer a fixed spatio-temporal resolution. Proposed sampling scheme requires a fast per-pixel shutter on the sensor-array, which was implemented using a co-located camera-projector system. 
 %
+%\begin{figure}
+%	\centering
+%	\begin{tikzpicture}
+%	\node[anchor=center](rec1) at (0,0)
+%	{\includegraphics[width=8cm]{figures/flexible_voxels.png}};
+%	\end{tikzpicture}
+%	
+%	\label{fig:flexible_voxels}
+%	
+%	\caption{Flexible voxels}
+%\end{figure}
+
+In \cite{Koller2015}, a prototype compressive video camera that encodes scene movement using a translated binary photomask in the optical path was presented. The encoded recording can be used to reconstruct multiple output frames from each captured image, effectively synthesizing high-speed video (see~Fig.~\ref{fig:temporal_cs}). Similarly, coded aperture compressive temporal imaging (CACTI) device proposed in \cite{Llull2013}, uses translating coded aperture during exposure to modulate each temporal plane in the video stream by a shifted version of the code, attaining per-pixel modulation using no additional sensor bandwidth. This process can be viewed as a form of code division multiple access (CDMA). The temporal channels are isolated from the compressed data by inverting a highly underdetermined system of equations and using an iterative reconstruction algorithm, several high-speed video frames are obtained from a single coded measurement. CACTI device was used in \cite{Llull2014} to estimate a sequence of video frames and to reconstruct an extended depth of field image from a single two-dimensional coded measurement.
+%
 \begin{figure}
 	\centering
 	\begin{tikzpicture}
 	\node[anchor=center](rec1) at (0,0)
-	{\includegraphics[width=8cm]{figures/flexible_voxels.png}};
+	{\includegraphics[width=8.6cm]{figures/temporal_cs.png}};
 	\end{tikzpicture}
 	
-	\label{fig:flexible_voxels}
-	
-	\caption{Flexible voxels}
-\end{figure}
-
-Another practical application of compressive sensing framework is described in \cite{Tsai2015}, where authors designed a coded aperture compressive spectral-temporal imaging device using CDMA to compress multi-spectral and high-speed data cube onto a single low frame rate, monochrome measurement. 
-
-Coded aperture compressive temporal imaging (CACTI) device proposed in \cite{Llull2013}, uses translating coded aperture during exposure to modulate each temporal plane in the video stream by a shifted version of the code, attaining per-pixel modulation using no additional sensor bandwidth. This process can be viewed as a form of code division multiple access (CDMA). The temporal channels are isolated from the compressed data by inverting a highly underdetermined system of equations and using an iterative reconstruction algorithm, several high-speed video frames are obtained from a single coded measurement. CACTI device was used in \cite{Llull2014} to estimate a sequence of video frames and to reconstruct an extended depth of field image from a single two-dimensional coded measurement.
-
-\begin{figure}
-	\centering
-	\begin{tikzpicture}
-	\node[anchor=center](rec1) at (0,0)
-	{\includegraphics[width=8cm]{figures/temporal_cs.png}};
-	\end{tikzpicture}
+	\caption{Temporal compressive sensing model. A space-time volume $\boldsymbol{x}$ consisting of a set of $T$ frames, with $H\times W$ pixels each is multiplied by a set of mask patterns embedded within the sensing matrix $\boldsymbol{\Phi}$. The sensor integrates over time, producing a single coded captured image $\boldsymbol{y}$ consisting of $H\times W$ pixels. \cite{Koller2015}}
 	
 	\label{fig:temporal_cs}
-	
-	\caption{test}
 \end{figure}
 
 
-Several architectures for compressive light-field imaging that require relatively few photon-efficient measurements to obtain a high-resolution estimate of the light field have been proposed in \cite{Ashok2010, Babacan2012, Marwah2013}. These architectures offer a significant improvement over traditional light-field imagers exploiting spatio-angular correlations inherent in the light fields of natural scenes.
+Light field imagers such as the plenoptic and integral imagers measure projections of 4D light field scalar function onto a two dimensional sensor and therefore suffer from a spatial vs. angular resolution trade-off. Several architectures for compressive light-field imaging that require relatively few photon-efficient measurements to obtain a high-resolution estimate of the light field have been proposed in \cite{Ashok2010, Babacan2012, Marwah2013}. These architectures offer a significant improvement over traditional light-field imagers exploiting spatio-angular correlations inherent in the light fields of natural scenes. 
 
-
+Inspired by different compressive imaging architectures, we have designed a simple setup for compressive imaging consisting of off-the-shelf components. A simple and portable plug-and-play compressive imaging architecture consists of digital camera and projector. Our compressive imaging method allows the use of low-resolution camera even with strong lens distortion for measurement acquisition. Results of our compressive imaging method are non-distorted, high-resolution images which are obtained using compressive sensing reconstruction process on acquired measurement data (see Fig. \ref{fig:our_results}).
+%
+\begin{figure}
+	\centering
+	\begin{tikzpicture}
+	\node[anchor=center](rec1) at (0,0)
+	{\includegraphics[width=8.6cm]{figures/cs_rec.png}};
+	\end{tikzpicture}
+	
+	\caption{Reconstruction of a two-dimensional scene using compressive imaging system composed of a projector and a camera. Left image shows the scene reconstruction, while right image shows single measurement from the camera sensor.}
+		
+	\label{fig:our_results}
+\end{figure}
 
 %\hfill mds
  
@@ -1003,7 +1060,7 @@ Several architectures for compressive light-field imaging that require relativel
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Conclusion} \label{sec:6}
+\section{Conclusion} \label{sec:7}
 
 In this paper, we gave an introduction to theory of sparse signal modeling and compressive sensing. We covered basis representation fundamentals using an illustrative example, sparse signal recovery basics, desired properties of compressive sensing matrices and uniqueness of CS recovery problem. Furthermore, we provided overview of algorithms for sparse recovery and overcomplete dictionary learning. Finally, we showed numerous practical applications of compressive sensing framework on real-word problems. Compressive sensing offers novel signal acquisition and reconstruction framework. The traditional Shannon-Nyquist sampling theory in which successful recovery of a signal only depends on the bandwidth of the signal is replaced by novel compressive sensing framework where informational content of the signal dictates recovery success.
 
