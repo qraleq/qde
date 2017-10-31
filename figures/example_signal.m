@@ -69,7 +69,7 @@ xlim([0 128])
 ylim([-0.8 3])
 box on
 % set(gcf, 'PaperPositionMode', 'auto');
-lgd = legend('Orig.', 'l_2 Rec.', 'Location', 'NorthWest')
+lgd = legend('Orig. = l_1 Rec.', 'l_2 Rec.', 'Location', 'NorthWest')
 lgd.FontSize = 6;
 
 hLine = plot([64 64], [-5 5])
